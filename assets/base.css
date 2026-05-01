@@ -4236,6 +4236,17 @@ product-recommendations:has([data-has-recommendations='false']) {
   }
 }
 
+/* Pause heavy animations when their section is scrolled off-screen */
+.hero[data-out-of-view] .hero__media,
+.hero[data-out-of-view] .hero__media-wrapper,
+.hero[data-out-of-view] picture {
+  animation-play-state: paused;
+}
+
+.marquee[data-out-of-view] .marquee__track {
+  animation-play-state: paused;
+}
+
 /* Vignette overlay: darker edges, lighter center */
 .hero__container::after {
   content: '';
@@ -4261,6 +4272,244 @@ product-recommendations:has([data-has-recommendations='false']) {
 .hero__content-wrapper a {
   border-radius: 0 !important;
   padding-inline: 3rem !important;
+}
+
+/* Modern collection (catalog) page — vertical sidebar layout */
+.product-grid-container {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 36px;
+  padding-block: 24px 48px;
+}
+
+/* Sticky filter sidebar */
+.facets-block-wrapper--vertical {
+  position: sticky;
+  top: 90px;
+  align-self: start;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.facets-block-wrapper--vertical::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+@media (max-width: 750px) {
+  .facets-block-wrapper--vertical {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+/* Vertical filter sidebar typography */
+.facets--vertical summary,
+.facets--vertical details > summary {
+  font-family: var(--font-heading--family) !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: #1a1a1a !important;
+  padding-block: 14px !important;
+  cursor: pointer;
+}
+
+.facets--vertical details {
+  border: none !important;
+}
+
+.facets--vertical hr,
+.facets--vertical [class*="divider"],
+.facets--vertical [class*="separator"] {
+  display: none !important;
+}
+
+/* Kill the pseudo-element dividers between filter groups */
+.facets:not(.facets--drawer) .facets__item::before,
+.facets:not(.facets--drawer) .sorting-filter::before,
+.facets__item::before,
+.sorting-filter::before {
+  display: none !important;
+  border: none !important;
+  content: none !important;
+}
+
+/* Hide top controls bar for vertical filters (count + sort + density) */
+.facets-controls-wrapper {
+  display: none !important;
+}
+
+/* Sidebar sort — inline expand, no popover/box */
+.facets__sidebar-sort {
+  margin-top: 8px;
+}
+
+.facets__sidebar-sort .sorting-filter__options {
+  position: static !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+}
+
+/* When sort details is closed, fully collapse */
+.facets__sidebar-sort details:not([open]) .sorting-filter__options {
+  grid-template-rows: 0fr !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.facets__sidebar-sort details[open] .sorting-filter__options {
+  grid-template-rows: 1fr !important;
+  opacity: 1 !important;
+}
+
+.facets__sidebar-sort .sorting-filter__options-inner {
+  padding: 4px 0 !important;
+}
+
+.facets__sidebar-sort .sorting-filter__option {
+  padding: 6px 0 !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+/* Show radio inputs as styled checkboxes */
+.facets__sidebar-sort .sorting-filter__input {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  border: 1.5px solid rgba(0, 0, 0, 0.3) !important;
+  border-radius: 4px !important;
+  position: static !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+  background: transparent !important;
+  display: inline-block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  margin: 0 !important;
+}
+
+.facets__sidebar-sort .sorting-filter__input:checked {
+  background-color: #111111 !important;
+  border-color: #111111 !important;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M3 8l3.5 3.5L13 5'/></svg>") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 14px !important;
+}
+
+/* Kill the inherited radio dot pseudo-element */
+.facets__sidebar-sort .sorting-filter__input::after,
+.facets__sidebar-sort .sorting-filter__input:checked::after,
+.facets__sidebar-sort .sorting-filter__input::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+/* Hide the original checkmark indicator */
+.facets__sidebar-sort .sorting-filter__checkmark {
+  display: none !important;
+}
+
+.facets__sidebar-sort .sorting-filter__label {
+  font-size: 0.9rem !important;
+  color: #444444 !important;
+}
+
+/* Hide active count bubble in sidebar (we already see selected via checkbox) */
+.facets-block-wrapper--vertical .filter-count-bubble,
+.facets-block-wrapper--vertical .facets__bubble,
+.facets-block-wrapper--vertical .bubble {
+  display: none !important;
+}
+
+/* Kill mystery dot above sort options */
+.facets__sidebar-sort summary::marker,
+.facets__sidebar-sort details::marker,
+.facets__sidebar-sort summary::-webkit-details-marker,
+.facets__sidebar-sort *::marker {
+  display: none !important;
+  content: '' !important;
+}
+
+.facets__sidebar-sort floating-panel-component::before,
+.facets__sidebar-sort floating-panel-component::after,
+.facets__sidebar-sort .sorting-filter__options::before,
+.facets__sidebar-sort .sorting-filter__options::after {
+  display: none !important;
+  content: none !important;
+}
+
+.facets__sidebar-sort ul,
+.facets__sidebar-sort ol,
+.facets__sidebar-sort li {
+  list-style: none !important;
+}
+
+
+.facets--vertical label,
+.facets--vertical .facet__label {
+  font-size: 0.88rem !important;
+  color: #444444 !important;
+  letter-spacing: 0.01em !important;
+  padding-block: 4px;
+}
+
+.facets__clear-all-link {
+  font-size: 0.7rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #888888 !important;
+  font-weight: 500 !important;
+}
+
+/* Card grid breathing room */
+.collection-wrapper:has(.facets--vertical) .main-collection-grid,
+.main-collection-grid {
+  column-gap: 24px !important;
+  row-gap: 48px !important;
+}
+
+/* Sort/view controls header */
+.product-grid-container [data-testid*="sort"] button,
+.product-grid-container .product-count {
+  font-family: var(--font-heading--family) !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: #2a2a2a !important;
+}
+
+@media (max-width: 750px) {
+  .product-grid-container {
+    padding-inline: 16px;
+    padding-block: 16px 32px;
+  }
+  .main-collection-grid {
+    column-gap: 16px !important;
+    row-gap: 32px !important;
+  }
 }
 
 /* Browse collections section */
@@ -4357,8 +4606,14 @@ product-recommendations:has([data-has-recommendations='false']) {
 }
 
 @media (max-width: 750px) {
+  .browse-collections-section {
+    padding-inline: 16px;
+  }
+
   .browse-collections__grid[data-columns] {
     --columns: 2;
+    column-gap: 16px;
+    row-gap: 24px;
   }
 }
 
@@ -4436,6 +4691,10 @@ product-recommendations:has([data-has-recommendations='false']) {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
+.bento-grid__dots {
+  display: none;
+}
+
 
 .bento-grid__content {
   position: absolute;
@@ -4503,18 +4762,84 @@ product-recommendations:has([data-has-recommendations='false']) {
 }
 
 @media (max-width: 750px) {
+  /* Convert grid to horizontal swiper */
   .bento-grid {
-    grid-template-columns: 1fr;
+    display: flex !important;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    gap: 16px;
+    padding: 0 16px 4px;
   }
+  .bento-grid::-webkit-scrollbar { display: none; }
+
   .bento-grid__item,
   .bento-grid__item--small {
-    aspect-ratio: 4 / 5;
+    flex: 0 0 calc(100vw - 32px);
+    width: calc(100vw - 32px);
+    aspect-ratio: auto;
+    min-height: 280px;
+    max-height: 340px;
+    scroll-snap-align: center;
   }
   .bento-grid__title {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
   .bento-grid__content {
-    padding: 1.75rem;
+    padding: 1.5rem;
+  }
+
+  /* No hover shadow on touch */
+  .bento-grid__item:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Smaller product card and collection card text on mobile */
+  .product-card .text-block,
+  .product-card .text-block p,
+  .product-card .text-block.custom-font-size,
+  .product-card .text-block.custom-font-size > * {
+    --font-size: 0.95rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .product-card .price,
+  .product-card .price-item--regular,
+  .product-card .price-item--sale {
+    --font-size: 0.85rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .browse-collections__name {
+    font-size: 0.95rem;
+  }
+
+  .browse-collections__count {
+    font-size: 0.85rem;
+  }
+
+  /* Navigation dots */
+  .bento-grid__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 0 4px;
+  }
+
+  .bento-grid__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.2);
+    transition: background 0.25s ease, width 0.25s ease;
+  }
+
+  .bento-grid__dot[data-active] {
+    background: #111111;
+    width: 24px;
   }
 }
 
@@ -4561,6 +4886,24 @@ product-recommendations:has([data-has-recommendations='false']) {
   font-size: 1rem !important;
   letter-spacing: 0.02em !important;
   color: #444444 !important;
+}
+
+/* Mobile shrink — placed after desktop rules to win cascade */
+@media (max-width: 750px) {
+  .product-card .text-block,
+  .product-card .text-block p,
+  .product-card .text-block.custom-font-size,
+  .product-card .text-block.custom-font-size > * {
+    --font-size: 0.95rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .product-card .price,
+  .product-card .price-item--regular,
+  .product-card .price-item--sale {
+    --font-size: 0.85rem !important;
+    font-size: 0.85rem !important;
+  }
 }
 
 /* JUST DROPPED title sizing override */

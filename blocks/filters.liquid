@@ -96,7 +96,7 @@
         </span>
       </div>
 
-      {% if block_settings.enable_sorting %}
+      {% if block_settings.enable_sorting and block_settings.filter_style != 'vertical' %}
         {% render 'sorting',
           results: results,
           sort_by: sort_by,
@@ -219,6 +219,20 @@
                   %}
                 {% else %}
                   {{ rendered_filters }}
+
+                  {% if block_settings.enable_sorting %}
+                    <div class="facets__sidebar-sort">
+                      {% render 'sorting',
+                        results: results,
+                        sort_by: sort_by,
+                        filter_style: block_settings.filter_style,
+                        suffix: 'desktop',
+                        sort_position: 'desktop',
+                        should_use_select_on_mobile: false,
+                        section_id: section.id
+                      %}
+                    </div>
+                  {% endif %}
                 {% endif %}
               </div>
 

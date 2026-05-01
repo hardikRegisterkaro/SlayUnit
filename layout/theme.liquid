@@ -126,6 +126,29 @@
         update();
         window.addEventListener('scroll', update, { passive: true });
       })();
+
+      (function pauseOffscreenAnimations() {
+        if (!('IntersectionObserver' in window)) return;
+        const observer = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.removeAttribute('data-out-of-view');
+            } else {
+              entry.target.setAttribute('data-out-of-view', '');
+            }
+          }
+        }, { rootMargin: '100px' });
+
+        const init = () => {
+          document.querySelectorAll('.hero, .marquee').forEach((el) => observer.observe(el));
+        };
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
     </script>
 
     <main

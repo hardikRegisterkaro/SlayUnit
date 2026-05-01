@@ -74,7 +74,12 @@
       id="Sorting-{{ section_id }}"
       data-default-sort-by="{{ default_sort_by }}"
       class="facets__panel {% if should_use_select_on_mobile %} mobile:hidden {% endif %}"
-      data-auto-close-details="desktop,mobile"
+      {% if filter_style != 'vertical' %}
+        data-auto-close-details="desktop,mobile"
+      {% endif %}
+      {% if filter_style == 'vertical' %}
+        open
+      {% endif %}
       on:toggle="/handleToggle"
     >
       <summary
