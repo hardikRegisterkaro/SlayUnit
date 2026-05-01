@@ -1,0 +1,69 @@
+<div class="bento-grid-section">
+  {%- assign marquee_phrases = 'MAIN CHARACTER ENERGY,WEAR YOUR ARC,POWER LEVEL · MAX,STORIES ON YOUR SLEEVE,BUILT DIFFERENT,OWN THE FIT,NEVER BACK DOWN,PROTAGONIST MODE' | split: ',' -%}
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      {% for i in (1..2) %}
+        <div class="marquee__group">
+          {% for phrase in marquee_phrases %}
+            <span class="marquee__item">{{ phrase }}</span>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="bento-grid">
+    <a
+      href="{{ section.settings.left_link | default: '/collections/all' }}"
+      class="bento-grid__item bento-grid__item--large"
+      style="background-image: url('{{ 'heroImage2.jpg' | asset_url }}');"
+    >
+      <div class="bento-grid__content">
+        <span class="bento-grid__subtitle">{{ section.settings.left_eyebrow | default: 'DROP 01' }}</span>
+        <h2 class="bento-grid__title">{{ section.settings.left_title | default: 'EARLY ACCESS' }}</h2>
+        <p class="bento-grid__body">{{ section.settings.left_body | default: "Be the first to wear what's next." }}</p>
+        <span class="bento-grid__cta">{{ section.settings.left_cta | default: 'Shop now' }}</span>
+      </div>
+    </a>
+
+    <a
+      href="{{ section.settings.right_link | default: '/collections/all' }}"
+      class="bento-grid__item bento-grid__item--small"
+      style="background-image: url('{{ 'heroImage3.jpg' | asset_url }}');"
+    >
+      <div class="bento-grid__content">
+        <span class="bento-grid__subtitle">{{ section.settings.right_eyebrow | default: 'FOR A LIMITED TIME' }}</span>
+        <h2 class="bento-grid__title">{{ section.settings.right_title | default: 'FREE TOTE' }}</h2>
+        <p class="bento-grid__body">{{ section.settings.right_body | default: 'With every order over Rs. 2,999.' }}</p>
+        <span class="bento-grid__cta">{{ section.settings.right_cta | default: 'Claim yours' }}</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bento banners",
+  "settings": [
+    { "type": "header", "content": "Marquee" },
+    { "type": "text", "id": "marquee_text", "label": "Marquee text", "default": "MADE FOR EVERY-BODY" },
+
+    { "type": "header", "content": "Left banner" },
+    { "type": "text", "id": "left_eyebrow", "label": "Eyebrow", "default": "DROP 01" },
+    { "type": "text", "id": "left_title", "label": "Title", "default": "EARLY ACCESS" },
+    { "type": "text", "id": "left_body", "label": "Body", "default": "Be the first to wear what's next." },
+    { "type": "text", "id": "left_cta", "label": "CTA label", "default": "Shop now" },
+    { "type": "url", "id": "left_link", "label": "Link" },
+
+    { "type": "header", "content": "Right banner" },
+    { "type": "text", "id": "right_eyebrow", "label": "Eyebrow", "default": "FOR A LIMITED TIME" },
+    { "type": "text", "id": "right_title", "label": "Title", "default": "FREE TOTE" },
+    { "type": "text", "id": "right_body", "label": "Body", "default": "With every order over Rs. 2,999." },
+    { "type": "text", "id": "right_cta", "label": "CTA label", "default": "Claim yours" },
+    { "type": "url", "id": "right_link", "label": "Link" }
+  ],
+  "presets": [
+    { "name": "Bento banners" }
+  ]
+}
+{% endschema %}

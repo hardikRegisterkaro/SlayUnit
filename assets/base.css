@@ -4263,6 +4263,162 @@ product-recommendations:has([data-has-recommendations='false']) {
   padding-inline: 3rem !important;
 }
 
+/* Bento grid banner section */
+.bento-grid-section {
+  padding-block: 32px 64px;
+}
+
+/* Marquee strip above bento */
+.marquee {
+  overflow: hidden;
+  padding-block: 1rem;
+  margin-bottom: 40px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+}
+
+.marquee__group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.marquee__item {
+  font-family: var(--font-heading--family);
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #444444;
+  padding-inline: 3rem;
+  white-space: nowrap;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 36px;
+}
+
+.bento-grid__item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 16px;
+  min-height: 360px;
+  text-decoration: none;
+  color: #ffffff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.bento-grid__item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+
+.bento-grid__content {
+  position: absolute;
+  inset: 0;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.bento-grid__subtitle {
+  font-family: var(--font-body--family);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.bento-grid__title {
+  font-family: var(--font-heading--family);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: #ffffff;
+}
+
+.bento-grid__item--small .bento-grid__title {
+  font-size: 2.25rem;
+}
+
+.bento-grid__body {
+  font-family: var(--font-body--family);
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin: 0;
+  opacity: 0.9;
+  max-width: 340px;
+}
+
+.bento-grid__cta {
+  font-family: var(--font-body--family);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  align-self: flex-start;
+  padding: 0.55rem 1.5rem;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background: transparent;
+  border-radius: 0;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.bento-grid__item:hover .bento-grid__cta {
+  background: #ffffff;
+  color: #111111;
+}
+
+@media (max-width: 750px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-grid__item,
+  .bento-grid__item--small {
+    aspect-ratio: 4 / 5;
+  }
+  .bento-grid__title {
+    font-size: 2.25rem;
+  }
+  .bento-grid__content {
+    padding: 1.75rem;
+  }
+}
+
 /* Constrain product list to make cards smaller */
 [data-testid="product-list"] {
   max-width: 1440px;
@@ -4327,6 +4483,26 @@ header-component .menu-list a {
   font-weight: 500;
 }
 
+/* Reduce navbar height */
+header-component {
+  --header-padding: var(--padding-2xs) !important;
+}
+
+/* Premium spacing in navbar */
+header-component .menu-list,
+header-component .header-menu__inner ul {
+  gap: 1.75rem !important;
+}
+
+header-component .header-actions {
+  gap: 0.5rem !important;
+  margin-left: 1.25rem;
+}
+
+header-component .header-actions__action {
+  padding: 0.4rem !important;
+}
+
 header-component .header-logo,
 header-component .header-logo a,
 header-component .header-logo span {
@@ -4368,8 +4544,11 @@ header-component[transparent] .header__underlay-open::after {
 header-component[transparent]:not([data-scrolled]),
 header-component[transparent]:not([data-scrolled]) a,
 header-component[transparent]:not([data-scrolled]) button,
-header-component[transparent]:not([data-scrolled]) .header__heading-link {
+header-component[transparent]:not([data-scrolled]) .header__heading-link,
+header-component[transparent]:not([data-scrolled]) .account-button__icon,
+header-component[transparent]:not([data-scrolled]) .account-button__text {
   color: #ffffff !important;
+  --color-account-icon: #ffffff !important;
 }
 
 /* Scrolled state: solid white header, black text/icons */
@@ -4384,6 +4563,9 @@ header-component[transparent][data-scrolled] {
 header-component[transparent][data-scrolled],
 header-component[transparent][data-scrolled] a,
 header-component[transparent][data-scrolled] button,
-header-component[transparent][data-scrolled] .header__heading-link {
+header-component[transparent][data-scrolled] .header__heading-link,
+header-component[transparent][data-scrolled] .account-button__icon,
+header-component[transparent][data-scrolled] .account-button__text {
   color: #111111 !important;
+  --color-account-icon: #111111 !important;
 }

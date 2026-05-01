@@ -162,7 +162,7 @@
                 "alignment": "center",
                 "type_preset": "custom",
                 "font": "var(--font-heading--family)",
-                "font_size": "1.75rem",
+                "font_size": "2.25rem",
                 "line_height": "1",
                 "letter_spacing": "0.04em",
                 "case": "uppercase",
@@ -308,10 +308,15 @@
         "padding-block-start": 32,
         "padding-block-end": 32
       }
+    },
+    "bento_banners_x8K": {
+      "type": "bento-banners",
+      "settings": {}
     }
   },
   "order": [
     "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "bento_banners_x8K"
   ]
 }
