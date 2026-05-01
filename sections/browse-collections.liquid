@@ -1,0 +1,57 @@
+{%- liquid
+  assign limit = section.settings.collection_limit | default: 8
+-%}
+
+<div class="browse-collections-section">
+  <h2 class="browse-collections__title">{{ section.settings.title | default: 'BROWSE COLLECTIONS' }}</h2>
+
+  <div class="browse-collections__grid" data-columns="{{ section.settings.columns | default: 4 }}">
+    {%- for collection in collections limit: limit -%}
+      {%- if collection.handle != 'frontpage' and collection.products_count > 0 -%}
+        <a href="{{ collection.url }}" class="browse-collections__card">
+          <div class="browse-collections__media">
+            {%- if collection.image != blank -%}
+              {{ collection.image | image_url: width: 800 | image_tag:
+                loading: 'lazy',
+                class: 'browse-collections__image',
+                alt: collection.title }}
+            {%- elsif collection.products.first.featured_media != blank -%}
+              {{ collection.products.first.featured_media | image_url: width: 800 | image_tag:
+                loading: 'lazy',
+                class: 'browse-collections__image',
+                alt: collection.title }}
+            {%- else -%}
+              <div class="browse-collections__placeholder"></div>
+            {%- endif -%}
+          </div>
+          <div class="browse-collections__info">
+            <span class="browse-collections__name">{{ collection.title }}</span>
+            <span class="browse-collections__count">{{ collection.products_count }} {% if collection.products_count == 1 %}item{% else %}items{% endif %}</span>
+          </div>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Browse collections",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "BROWSE COLLECTIONS" },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns",
+      "min": 2, "max": 6, "step": 1, "default": 4
+    },
+    {
+      "type": "range",
+      "id": "collection_limit",
+      "label": "Max collections",
+      "min": 2, "max": 12, "step": 1, "default": 8
+    }
+  ],
+  "presets": [{ "name": "Browse collections" }]
+}
+{% endschema %}
