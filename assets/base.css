@@ -4213,3 +4213,177 @@ product-recommendations:has([data-has-recommendations='false']) {
     translate: 0px var(--atc-destination, 0px);
   }
 }
+
+/* Anchor hero image to the bottom */
+.hero__media {
+  object-position: center bottom !important;
+  animation: heroSlowZoom 14s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes heroSlowZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__media {
+    animation: none;
+  }
+}
+
+/* Vignette overlay: darker edges, lighter center */
+.hero__container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 35%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  z-index: 2;
+}
+
+.hero__content-wrapper {
+  z-index: 3 !important;
+}
+
+/* Square buttons in hero with wider horizontal padding */
+.hero__content-wrapper .button-primary,
+.hero__content-wrapper .button-secondary,
+.hero__content-wrapper button,
+.hero__content-wrapper a {
+  border-radius: 0 !important;
+  padding-inline: 3rem !important;
+}
+
+/* Constrain product list to make cards smaller */
+[data-testid="product-list"] {
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+/* Rounded product card images */
+.product-card .product-card__media,
+.product-card .product-card__media-wrapper,
+.product-card .product-media,
+.product-card img,
+.product-card picture {
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+/* Sold out badge: transparent bg, white border, white text, pill shape */
+.product-badges__badge {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border-radius: 0 !important;
+  border: 1px solid #ffffff !important;
+}
+
+/* Modern product card typography */
+.product-card .text-block,
+.product-card .text-block p {
+  font-family: var(--font-heading--family) !important;
+  font-weight: 700 !important;
+  font-size: 1.15rem !important;
+  letter-spacing: 0.01em !important;
+  line-height: 1.3 !important;
+  color: #444444 !important;
+}
+
+.product-card .price,
+.product-card .price-item--regular,
+.product-card .price-item--sale {
+  font-family: var(--font-body--family) !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+  letter-spacing: 0.02em !important;
+  color: #444444 !important;
+}
+
+/* JUST DROPPED title sizing override */
+.text-block--product_list_text_YFtzcL,
+.text-block--product_list_text_YFtzcL h1,
+.text-block--product_list_text_YFtzcL h2,
+.text-block--product_list_text_YFtzcL h3,
+.text-block--product_list_text_YFtzcL h4 {
+  font-size: 1.5rem !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* Modern header typography */
+header-component .header-menu a,
+header-component .menu-list a {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem !important;
+  font-weight: 500;
+}
+
+header-component .header-logo,
+header-component .header-logo a,
+header-component .header-logo span {
+  text-transform: uppercase !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 800 !important;
+}
+
+/* Glassmorphism for transparent header (top of page, over hero) */
+header-component[transparent] {
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: none !important;
+  box-shadow: none !important;
+  transition: background-color 0.3s ease;
+}
+
+header-component[transparent] .header__underlay,
+header-component[transparent] .header__row,
+header-component[transparent] .header__underlay-closed,
+header-component[transparent] .header__underlay-open,
+header-component[transparent]:hover .header__underlay-closed,
+header-component[transparent]:hover .header__underlay-open,
+header-component[transparent]:focus-within .header__underlay-closed,
+header-component[transparent]:focus-within .header__underlay-open {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: color 0.3s ease;
+}
+
+header-component[transparent] .header__underlay-open::after {
+  display: none !important;
+}
+
+header-component[transparent]:not([data-scrolled]),
+header-component[transparent]:not([data-scrolled]) a,
+header-component[transparent]:not([data-scrolled]) button,
+header-component[transparent]:not([data-scrolled]) .header__heading-link {
+  color: #ffffff !important;
+}
+
+/* Scrolled state: solid white header, black text/icons */
+header-component[transparent][data-scrolled] {
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+header-component[transparent][data-scrolled],
+header-component[transparent][data-scrolled] a,
+header-component[transparent][data-scrolled] button,
+header-component[transparent][data-scrolled] .header__heading-link {
+  color: #111111 !important;
+}

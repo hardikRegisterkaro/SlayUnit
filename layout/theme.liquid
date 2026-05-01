@@ -112,6 +112,20 @@
           headerComponent.dataset.menuStyle = isTouchDevice || hasReachedMinimum ? 'drawer' : 'menu';
         }
       })();
+
+      (function setHeaderScrollState() {
+        const header = document.querySelector('header-component');
+        if (!header || !header.hasAttribute('transparent')) return;
+        const update = () => {
+          if (window.scrollY > 80) {
+            header.setAttribute('data-scrolled', 'true');
+          } else {
+            header.removeAttribute('data-scrolled');
+          }
+        };
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+      })();
     </script>
 
     <main
