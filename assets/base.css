@@ -4467,6 +4467,113 @@ product-recommendations:has([data-has-recommendations='false']) {
   list-style: none !important;
 }
 
+/* === Mobile drawer & mobile-only wrapper: render sort inline like Availability === */
+.facets--drawer .sorting-filter__options,
+.facets-mobile-wrapper .sorting-filter__options {
+  position: static !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+}
+
+.facets--drawer .sorting-filter details:not([open]) .sorting-filter__options,
+.facets-mobile-wrapper .sorting-filter details:not([open]) .sorting-filter__options {
+  grid-template-rows: 0fr !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.facets--drawer .sorting-filter details[open] .sorting-filter__options,
+.facets-mobile-wrapper .sorting-filter details[open] .sorting-filter__options {
+  grid-template-rows: 1fr !important;
+  opacity: 1 !important;
+}
+
+.facets--drawer .sorting-filter__options-inner,
+.facets-mobile-wrapper .sorting-filter__options-inner {
+  padding: 4px 0 !important;
+}
+
+.facets--drawer .sorting-filter__option,
+.facets-mobile-wrapper .sorting-filter__option {
+  padding: 6px 0 !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+/* Show radio inputs as styled checkboxes in mobile drawer */
+.facets--drawer .sorting-filter__input,
+.facets-mobile-wrapper .sorting-filter__input {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  border: 1.5px solid rgba(0, 0, 0, 0.3) !important;
+  border-radius: 4px !important;
+  position: static !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+  background: transparent !important;
+  display: inline-block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  margin: 0 !important;
+}
+
+.facets--drawer .sorting-filter__input:checked,
+.facets-mobile-wrapper .sorting-filter__input:checked {
+  background-color: #111111 !important;
+  border-color: #111111 !important;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M3 8l3.5 3.5L13 5'/></svg>") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+/* Kill the inherited radio dot pseudo-element in mobile drawer */
+.facets--drawer .sorting-filter__input::after,
+.facets--drawer .sorting-filter__input:checked::after,
+.facets--drawer .sorting-filter__input::before,
+.facets-mobile-wrapper .sorting-filter__input::after,
+.facets-mobile-wrapper .sorting-filter__input:checked::after,
+.facets-mobile-wrapper .sorting-filter__input::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+.facets--drawer .sorting-filter__checkmark,
+.facets-mobile-wrapper .sorting-filter__checkmark {
+  display: none !important;
+}
+
+.facets--drawer .sorting-filter__label,
+.facets-mobile-wrapper .sorting-filter__label {
+  font-size: 0.88rem !important;
+  color: #444 !important;
+  cursor: pointer;
+}
+
+.facets--drawer .sorting-filter floating-panel-component::before,
+.facets--drawer .sorting-filter floating-panel-component::after,
+.facets-mobile-wrapper .sorting-filter floating-panel-component::before,
+.facets-mobile-wrapper .sorting-filter floating-panel-component::after {
+  display: none !important;
+  content: none !important;
+}
+
 
 .facets--vertical label,
 .facets--vertical .facet__label {
