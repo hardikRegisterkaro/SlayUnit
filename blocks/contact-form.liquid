@@ -49,117 +49,177 @@
     {%- endif -%}
 
     <div class="contact-form__form-row">
-      <label
-        class="visually-hidden"
-        for="ContactForm-name"
-      >
-        {{- 'blocks.contact_form.name' | t -}}
-      </label>
-      <input
-        type="text"
-        id="ContactForm-name"
-        class="contact-form__input"
-        autocomplete="name"
-        name="contact[name]"
-        value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
-        placeholder="{{ 'blocks.contact_form.name' | t }}"
-      >
+      <div class="contact-form__field">
+        <input
+          type="text"
+          id="ContactForm-name"
+          class="contact-form__input"
+          autocomplete="name"
+          name="contact[name]"
+          value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+          placeholder=" "
+        >
+        <label class="contact-form__label" for="ContactForm-name">
+          {{- 'blocks.contact_form.name' | t -}}
+        </label>
+      </div>
 
-      <label
-        class="visually-hidden"
-        for="ContactForm-email"
-      >
-        {{- 'blocks.contact_form.email' | t -}}
-        <span aria-hidden="true">*</span></label
-      >
-      <input
-        type="email"
-        id="ContactForm-email"
-        class="contact-form__input"
-        autocomplete="email"
-        name="contact[email]"
-        spellcheck="false"
-        autocapitalize="off"
-        value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
-        aria-required="true"
-        {% if form.errors contains 'email' and form.id == form_id %}
-          aria-invalid="true"
-          aria-describedby="ContactForm-email-error"
-        {% endif %}
-        placeholder="{{ 'blocks.contact_form.email' | t }}"
-      >
+      <div class="contact-form__field">
+        <input
+          type="email"
+          id="ContactForm-email"
+          class="contact-form__input"
+          autocomplete="email"
+          name="contact[email]"
+          spellcheck="false"
+          autocapitalize="off"
+          value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+          aria-required="true"
+          {% if form.errors contains 'email' and form.id == form_id %}
+            aria-invalid="true"
+            aria-describedby="ContactForm-email-error"
+          {% endif %}
+          placeholder=" "
+        >
+        <label class="contact-form__label" for="ContactForm-email">
+          {{- 'blocks.contact_form.email' | t -}} <span aria-hidden="true">*</span>
+        </label>
+      </div>
     </div>
 
-    <label
-      class="visually-hidden"
-      for="ContactForm-phone"
-    >
-      {{- 'blocks.contact_form.phone' | t -}}
-    </label>
-    <input
-      type="tel"
-      id="ContactForm-phone"
-      class="contact-form__input"
-      autocomplete="tel"
-      name="contact[phone]"
-      pattern="[0-9\-]*"
-      value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
-      placeholder="{{ 'blocks.contact_form.phone' | t }}"
-    >
+    <div class="contact-form__field">
+      <input
+        type="tel"
+        id="ContactForm-phone"
+        class="contact-form__input"
+        autocomplete="tel"
+        name="contact[phone]"
+        pattern="[0-9\-]*"
+        value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+        placeholder=" "
+      >
+      <label class="contact-form__label" for="ContactForm-phone">
+        {{- 'blocks.contact_form.phone' | t -}}
+      </label>
+    </div>
 
-    <label
-      class="visually-hidden"
-      for="ContactForm-body"
-    >
-      {{- 'blocks.contact_form.comment' | t -}}
-    </label>
-    <textarea
-      rows="10"
-      id="ContactForm-body"
-      class="contact-form__input contact-form__input--textarea"
-      name="contact[body]"
-      placeholder="{{ 'blocks.contact_form.comment' | t }}"
-    >
-      {{- form.body -}}
-    </textarea>
+    <div class="contact-form__field contact-form__field--textarea">
+      <textarea
+        rows="6"
+        id="ContactForm-body"
+        class="contact-form__input contact-form__input--textarea"
+        name="contact[body]"
+        placeholder=" "
+      >{{- form.body -}}</textarea>
+      <label class="contact-form__label" for="ContactForm-body">
+        {{- 'blocks.contact_form.comment' | t -}}
+      </label>
+    </div>
 
     {{ submit_button }}
   {%- endform -%}
 </div>
 
 {% stylesheet %}
+  .contact-form {
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
   .contact-form__form {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-md);
+    gap: 32px;
   }
 
   .contact-form__form-row {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-md);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
 
     @media screen and (min-width: 750px) {
-      flex-direction: row;
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
     }
+  }
+
+  .contact-form__field {
+    position: relative;
+    border-bottom: 1.5px solid rgb(0 0 0 / 0.18);
+    transition: border-color 0.25s ease;
+  }
+
+  .contact-form__field:focus-within {
+    border-bottom-color: var(--color-foreground);
+  }
+
+  .contact-form__field--textarea {
+    border: 1.5px solid rgb(0 0 0 / 0.18);
+    border-radius: 14px;
+    padding: 6px 14px 8px;
+  }
+
+  .contact-form__field--textarea:focus-within {
+    border-color: var(--color-foreground);
   }
 
   .contact-form__input {
     width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: var(--color-input-text);
-    background-color: var(--color-input-background);
-    padding: var(--padding-lg) var(--padding-xl);
-    border-radius: var(--style-border-radius-inputs);
-    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    padding: 22px 0 10px;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    color: var(--color-foreground);
+    font-family: inherit;
+    outline: none;
     -webkit-font-smoothing: antialiased;
   }
 
+  .contact-form__input:focus {
+    outline: none;
+  }
+
   .contact-form__input--textarea {
+    padding: 12px 0 4px;
     resize: vertical;
-    min-height: var(--input-textarea-min-height);
+    min-height: 160px;
+    line-height: 1.5;
+  }
+
+  .contact-form__label {
+    position: absolute;
+    left: 0;
+    top: 22px;
+    font-size: 1rem;
+    color: rgb(0 0 0 / 0.5);
+    pointer-events: none;
+    transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease, letter-spacing 0.2s ease;
+    font-family: inherit;
+    transform-origin: 0 0;
+  }
+
+  .contact-form__field--textarea .contact-form__label {
+    top: 16px;
+    left: 14px;
+  }
+
+  .contact-form__input:focus ~ .contact-form__label,
+  .contact-form__input:not(:placeholder-shown) ~ .contact-form__label {
+    top: 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    font-weight: 500;
+  }
+
+  .contact-form__field--textarea .contact-form__input:focus ~ .contact-form__label,
+  .contact-form__field--textarea .contact-form__input:not(:placeholder-shown) ~ .contact-form__label {
+    top: -8px;
+    left: 10px;
+    background: var(--color-background);
+    padding: 0 6px;
   }
 
   .contact-form__error,
@@ -167,6 +227,38 @@
     display: flex;
     align-items: center;
     gap: var(--gap-xs);
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+  }
+
+  .contact-form__error {
+    background: rgb(220 38 38 / 0.08);
+    color: rgb(180 18 18);
+  }
+
+  .contact-form__success {
+    background: rgb(22 163 74 / 0.08);
+    color: rgb(20 120 60);
+  }
+
+  .contact-form .submit-button {
+    margin-top: 8px;
+    padding-inline: 44px;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .contact-form .submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -12px rgb(0 0 0 / 0.45);
+  }
+
+  @media screen and (max-width: 749px) {
+    .contact-form .submit-button {
+      width: 100%;
+    }
   }
 {% endstylesheet %}
 

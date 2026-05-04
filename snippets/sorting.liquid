@@ -85,7 +85,7 @@
       <summary
         class="facets__summary"
         role="button"
-        aria-expanded="false"
+        aria-expanded="{% if filter_style == 'vertical' %}true{% else %}false{% endif %}"
         aria-controls="sorting-options-{{ section_id }}-{{ suffix }}"
         ref="summary"
       >
@@ -150,12 +150,19 @@
   {% endcapture %}
   {%- liquid
     assign is_horizontal = false
+    assign is_vertical = false
     if filter_style == 'horizontal'
       assign is_horizontal = true
+    endif
+    if filter_style == 'vertical'
+      assign is_vertical = true
     endif
   -%}
   {% render 'accordion-custom-component',
     children: accordion_children,
+    open: is_vertical,
+    open_by_default_on_desktop: is_vertical,
+    open_by_default_on_mobile: is_vertical,
     disable_animation_on_desktop: is_horizontal,
     close_with_escape: is_horizontal
   %}

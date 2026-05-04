@@ -1,0 +1,341 @@
+{% assign form_id = 'ContactForm-' | append: section.id %}
+<section class="contact-page-v2">
+  <div class="contact-page-v2__grid">
+    <div class="contact-page-v2__media">
+      <img
+        src="{{ 'heroImage2.jpg' | asset_url }}"
+        alt="Slay Unit"
+        loading="lazy"
+        decoding="async"
+        width="1200"
+        height="1500"
+      >
+    </div>
+
+    <div class="contact-page-v2__content">
+      <h1 class="contact-page-v2__headline">
+        {{ section.settings.headline_lead }} {{ section.settings.headline_accent }}
+      </h1>
+
+      {% if section.settings.tagline != blank %}
+        <p class="contact-page-v2__tagline">{{ section.settings.tagline }}</p>
+      {% endif %}
+
+      {%- form 'contact', id: form_id, class: 'contact-page-v2__form' -%}
+        <input name="contact[id]" type="hidden" value="{{ form_id }}">
+
+        {%- if form.errors and form.id == form_id -%}
+          <div class="contact-page-v2__error" tabindex="-1" autofocus>
+            {{- 'icon-error.svg' | inline_asset_content -}}
+            {{- form.errors.translated_fields.email | capitalize }}
+            {{ form.errors.messages.email -}}
+          </div>
+        {%- endif -%}
+
+        {%- if form.posted_successfully? and form.id == form_id -%}
+          <div class="contact-page-v2__success" tabindex="-1" autofocus>
+            {{- 'icon-checkmark.svg' | inline_asset_content -}}
+            {{- 'blocks.contact_form.post_success' | t -}}
+          </div>
+        {%- endif -%}
+
+        <div class="contact-page-v2__row contact-page-v2__row--double">
+          <div class="contact-page-v2__field">
+            <label for="ContactForm-name">Name</label>
+            <input
+              type="text"
+              id="ContactForm-name"
+              name="contact[name]"
+              autocomplete="name"
+              placeholder="Your name"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            >
+          </div>
+          <div class="contact-page-v2__field">
+            <label for="ContactForm-email">Email <span class="contact-page-v2__required">*</span></label>
+            <input
+              type="email"
+              id="ContactForm-email"
+              name="contact[email]"
+              autocomplete="email"
+              spellcheck="false"
+              autocapitalize="off"
+              placeholder="you@example.com"
+              value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+              aria-required="true"
+            >
+          </div>
+        </div>
+
+        <div class="contact-page-v2__field">
+          <label for="ContactForm-phone">Phone <span class="contact-page-v2__optional">(optional)</span></label>
+          <input
+            type="tel"
+            id="ContactForm-phone"
+            name="contact[phone]"
+            autocomplete="tel"
+            pattern="[0-9\-+\s]*"
+            placeholder="+91 ..."
+            value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+          >
+        </div>
+
+        <div class="contact-page-v2__field">
+          <label for="ContactForm-body">Message</label>
+          <textarea
+            rows="5"
+            id="ContactForm-body"
+            name="contact[body]"
+            placeholder="Tell us what you're thinking..."
+          >{{- form.body -}}</textarea>
+        </div>
+
+        <button type="submit" class="contact-page-v2__submit">
+          <span>{{ section.settings.submit_label | default: 'SEND IT' }}</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .contact-page-v2 {
+    padding: 80px 24px 100px;
+    max-width: 1280px;
+    margin-inline: auto;
+  }
+
+  .contact-page-v2__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: stretch;
+  }
+
+  @media screen and (min-width: 900px) {
+    .contact-page-v2__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+    }
+  }
+
+  .contact-page-v2__media {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #111;
+    aspect-ratio: 4 / 5;
+  }
+
+  @media screen and (min-width: 900px) {
+    .contact-page-v2__media {
+      aspect-ratio: auto;
+      min-height: 100%;
+    }
+  }
+
+  .contact-page-v2__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1.2s ease;
+  }
+
+  .contact-page-v2__media:hover img {
+    transform: scale(1.04);
+  }
+
+  .contact-page-v2__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-page-v2__headline {
+    font-family: inherit;
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    font-style: normal;
+    margin: 0 0 18px;
+    color: var(--color-foreground);
+    text-wrap: balance;
+  }
+
+  .contact-page-v2__tagline {
+    font-size: 1rem;
+    color: rgb(0 0 0 / 0.6);
+    line-height: 1.55;
+    margin: 0 0 28px;
+  }
+
+  .contact-page-v2__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-page-v2__row--double {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  @media screen and (min-width: 600px) {
+    .contact-page-v2__row--double {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .contact-page-v2__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .contact-page-v2__field label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(0 0 0 / 0.7);
+    font-weight: 700;
+  }
+
+  .contact-page-v2__required {
+    color: rgb(0 0 0 / 0.7);
+  }
+
+  .contact-page-v2__optional {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: rgb(0 0 0 / 0.4);
+  }
+
+  .contact-page-v2__field input,
+  .contact-page-v2__field textarea {
+    width: 100%;
+    background: rgb(245 245 247);
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    padding: 13px 16px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--color-foreground);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .contact-page-v2__field input::placeholder,
+  .contact-page-v2__field textarea::placeholder {
+    color: rgb(0 0 0 / 0.32);
+  }
+
+  .contact-page-v2__field input:focus,
+  .contact-page-v2__field textarea:focus {
+    outline: none;
+    background: white;
+    border-color: var(--color-foreground);
+    box-shadow: 0 0 0 3px rgb(0 0 0 / 0.06);
+  }
+
+  .contact-page-v2__field textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.5;
+  }
+
+  .contact-page-v2__submit {
+    margin-top: 8px;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    border: none;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    font-family: inherit;
+  }
+
+  .contact-page-v2__submit svg {
+    transition: transform 0.25s ease;
+  }
+
+  .contact-page-v2__submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px -12px rgb(0 0 0 / 0.45);
+  }
+
+  .contact-page-v2__submit:hover svg {
+    transform: translateX(4px);
+  }
+
+  @media screen and (max-width: 599px) {
+    .contact-page-v2__submit {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .contact-page-v2__error,
+  .contact-page-v2__success {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+  }
+
+  .contact-page-v2__error {
+    background: rgb(220 38 38 / 0.08);
+    color: rgb(180 18 18);
+  }
+
+  .contact-page-v2__success {
+    background: rgb(22 163 74 / 0.08);
+    color: rgb(20 120 60);
+  }
+
+  @media screen and (max-width: 749px) {
+    .contact-page-v2 {
+      padding: 40px 16px 64px;
+    }
+    .contact-page-v2__media {
+      border-radius: 18px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Contact page",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "headline_lead", "label": "Headline (lead)", "default": "Let's" },
+    { "type": "text", "id": "headline_accent", "label": "Headline (accent)", "default": "talk." },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Slide into our inbox. Drop a question, a vibe, or just say what's up." },
+
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "submit_label", "label": "Submit button label", "default": "SEND MESSAGE" }
+  ],
+  "presets": [
+    { "name": "Contact page" }
+  ]
+}
+{% endschema %}
