@@ -334,6 +334,7 @@
       width="5184"
       height="3456"
       loading="eager"
+      decoding="async"
       fetchpriority="{{ fetch_priority }}"
     >
   {%- endif -%}
@@ -367,7 +368,7 @@
     }}
   {% endif %}
   {% if media_count == 0 %}
-    <img src="{{ 'heroImage.jpg' | asset_url }}" alt="" class="hero__media" width="5184" height="3456">
+    <img src="{{ 'heroImage.jpg' | asset_url }}" alt="" class="hero__media" width="5184" height="3456" loading="lazy" decoding="async">
   {% endif %}
 {% endcapture %}
 
