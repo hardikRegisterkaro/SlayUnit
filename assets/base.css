@@ -5655,21 +5655,16 @@ header-component[transparent][data-scrolled] .account-button__text {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(4px);
+  background: none;
   border: none;
   cursor: pointer;
-  color: #111;
-  transition: background 0.2s, color 0.2s, transform 0.15s;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  color: #fff;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  transition: transform 0.15s, color 0.15s;
 }
 
 .wishlist-btn:hover {
-  background: #fff;
-  transform: scale(1.08);
+  transform: scale(1.15);
 }
 
 .wishlist-btn--active {
@@ -5697,6 +5692,10 @@ header-component[transparent][data-scrolled] .account-button__text {
   color: var(--color-foreground);
 }
 
+.wishlist-nav-badge[hidden] {
+  display: none !important;
+}
+
 .wishlist-nav-badge {
   position: absolute;
   top: 4.5px;
@@ -5704,8 +5703,8 @@ header-component[transparent][data-scrolled] .account-button__text {
   min-width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #ffffff;
-  color: #111111;
+  background: #111111;
+  color: #ffffff;
   font-size: 10px;
   font-weight: 700;
   display: flex;
@@ -5714,6 +5713,20 @@ header-component[transparent][data-scrolled] .account-button__text {
   pointer-events: none;
   line-height: 1;
   padding: 0;
+}
+
+/* Wishlist drawer lives inside header-component — lock its text to dark regardless of transparent header state */
+header-component[transparent] .wishlist-drawer__dialog,
+header-component[transparent] .wishlist-drawer__dialog a,
+header-component[transparent] .wishlist-drawer__dialog button,
+header-component[transparent] .wishlist-drawer__dialog span {
+  color: #111111 !important;
+}
+
+/* Transparent header at top of page: invert badge so it's legible over hero */
+header-component[transparent]:not([data-scrolled]) .wishlist-nav-badge {
+  background: #ffffff !important;
+  color: #111111 !important;
 }
 
 /* Wishlist drawer */
@@ -5803,11 +5816,6 @@ header-component[transparent][data-scrolled] .account-button__text {
   align-items: center;
   gap: var(--gap-md);
   padding-block: var(--padding-md);
-  border-bottom: var(--style-border-width) solid var(--color-border);
-}
-
-.wishlist-drawer__item:last-child {
-  border-bottom: none;
 }
 
 .wishlist-drawer__item-media {
