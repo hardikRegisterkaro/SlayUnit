@@ -5124,6 +5124,16 @@ header-component[transparent]:not([data-scrolled]) .account-button__text {
   --color-account-icon: #ffffff !important;
 }
 
+header-component[transparent]:not([data-scrolled]) .wishlist-nav__trigger,
+header-component[transparent]:not([data-scrolled]) .wishlist-nav__trigger svg {
+  color: #111111 !important;
+}
+
+header-component[transparent]:not([data-scrolled]) .wishlist-nav-badge {
+  background: #111111 !important;
+  color: #ffffff !important;
+}
+
 /* Scrolled state: solid white header, black text/icons */
 header-component[transparent][data-scrolled] {
   background-color: rgba(255, 255, 255, 0.92);
