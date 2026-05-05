@@ -296,7 +296,13 @@
     },
     "bento_banners_x8K": {
       "type": "bento-banners",
-      "settings": {}
+      "settings": {
+        "right_eyebrow": "WE'D LOVE TO HEAR FROM YOU",
+        "right_title": "CONTACT US",
+        "right_body": "Questions about orders, sizing, or collabs? Reach out anytime.",
+        "right_cta": "Get in touch",
+        "right_link": "/pages/contact"
+      }
     },
     "browse_collections_p2M": {
       "type": "browse-collections",
