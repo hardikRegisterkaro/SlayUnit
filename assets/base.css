@@ -5792,6 +5792,62 @@ header-component[transparent]:not([data-scrolled]) .wishlist-nav-badge {
   background-color: var(--color-background);
 }
 
+@media screen and (max-width: 749px) {
+  .wishlist-drawer__dialog {
+    width: 85vw !important;
+    max-width: 420px !important;
+    inset-inline-start: auto !important;
+    inset-inline-end: 0 !important;
+  }
+
+  .wishlist-drawer__header {
+    padding: 18px 16px 14px !important;
+  }
+
+  .wishlist-drawer__heading {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+  }
+
+  .wishlist-drawer__list {
+    padding: 4px 16px !important;
+  }
+
+  .wishlist-drawer__item-title {
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+  }
+
+  .wishlist-drawer__item-price {
+    font-size: 0.72rem !important;
+  }
+
+  .wishlist-drawer__item-media {
+    width: 5rem !important;
+    height: 6.25rem !important;
+  }
+
+  .wishlist-drawer__close {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+  }
+
+  .wishlist-drawer__close .svg-wrapper,
+  .wishlist-drawer__close svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+}
+
+/* Mobile hamburger drawer — reduce nav link font size */
+@media screen and (max-width: 749px) {
+  .menu-drawer__menu-item-text {
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+  }
+}
+
 @media screen and (min-width: 750px) {
   .wishlist-drawer__dialog {
     width: var(--sidebar-width);
