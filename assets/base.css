@@ -5124,16 +5124,6 @@ header-component[transparent]:not([data-scrolled]) .account-button__text {
   --color-account-icon: #ffffff !important;
 }
 
-header-component[transparent]:not([data-scrolled]) .wishlist-nav__trigger,
-header-component[transparent]:not([data-scrolled]) .wishlist-nav__trigger svg {
-  color: #111111 !important;
-}
-
-header-component[transparent]:not([data-scrolled]) .wishlist-nav-badge {
-  background: #111111 !important;
-  color: #ffffff !important;
-}
-
 /* Scrolled state: solid white header, black text/icons */
 header-component[transparent][data-scrolled] {
   background-color: rgba(255, 255, 255, 0.92);
@@ -5714,8 +5704,8 @@ header-component[transparent][data-scrolled] .account-button__text {
   min-width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--color-foreground);
-  color: var(--color-background);
+  background: #ffffff;
+  color: #111111;
   font-size: 10px;
   font-weight: 700;
   display: flex;
