@@ -5084,6 +5084,43 @@ header-component .header-logo span {
   font-weight: 800 !important;
 }
 
+@media (max-width: 749px) {
+  /* Tighten all header icon gaps on mobile */
+  header-component .header-actions {
+    gap: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  header-component .header-actions__action,
+  .wishlist-nav__trigger {
+    padding: 0.1rem !important;
+    min-width: 32px !important;
+  }
+
+  /* Left side: hamburger + search */
+  .header__icon--menu,
+  .header__icon--search,
+  search-button .header-actions__action {
+    min-width: 32px !important;
+    padding: 0.1rem !important;
+  }
+
+  /* Show "SU" instead of full shop name on mobile (both normal and transparent/inverse states) */
+  .header-logo__image-container--original,
+  .header-logo__image-container--inverse {
+    font-size: 0 !important;
+  }
+
+  .header-logo__image-container--original::before,
+  .header-logo__image-container--inverse::before {
+    content: 'SU';
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+}
+
 /* Glassmorphism for transparent header (top of page, over hero) */
 header-component[transparent] {
   background-color: rgba(255, 255, 255, 0.08);
@@ -5117,6 +5154,10 @@ header-component[transparent] .header__underlay-open::after {
 header-component[transparent]:not([data-scrolled]),
 header-component[transparent]:not([data-scrolled]) a,
 header-component[transparent]:not([data-scrolled]) button,
+header-component[transparent]:not([data-scrolled]) cart-icon,
+header-component[transparent]:not([data-scrolled]) cart-icon svg,
+header-component[transparent]:not([data-scrolled]) search-button svg,
+header-component[transparent]:not([data-scrolled]) .header__icon svg,
 header-component[transparent]:not([data-scrolled]) .header__heading-link,
 header-component[transparent]:not([data-scrolled]) .account-button__icon,
 header-component[transparent]:not([data-scrolled]) .account-button__text {
@@ -5136,6 +5177,10 @@ header-component[transparent][data-scrolled] {
 header-component[transparent][data-scrolled],
 header-component[transparent][data-scrolled] a,
 header-component[transparent][data-scrolled] button,
+header-component[transparent][data-scrolled] cart-icon,
+header-component[transparent][data-scrolled] cart-icon svg,
+header-component[transparent][data-scrolled] search-button svg,
+header-component[transparent][data-scrolled] .header__icon svg,
 header-component[transparent][data-scrolled] .header__heading-link,
 header-component[transparent][data-scrolled] .account-button__icon,
 header-component[transparent][data-scrolled] .account-button__text {
