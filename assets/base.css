@@ -5715,11 +5715,15 @@ header-component[transparent][data-scrolled] .account-button__text {
   padding: 0;
 }
 
-/* Wishlist drawer lives inside header-component — lock its text to dark regardless of transparent header state */
+/* Drawers live inside header-component — lock text to dark regardless of transparent header state */
 header-component[transparent] .wishlist-drawer__dialog,
 header-component[transparent] .wishlist-drawer__dialog a,
 header-component[transparent] .wishlist-drawer__dialog button,
-header-component[transparent] .wishlist-drawer__dialog span {
+header-component[transparent] .wishlist-drawer__dialog span,
+header-component[transparent] .menu-drawer,
+header-component[transparent] .menu-drawer a,
+header-component[transparent] .menu-drawer button,
+header-component[transparent] .menu-drawer span {
   color: #111111 !important;
 }
 
