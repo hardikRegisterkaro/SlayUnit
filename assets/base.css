@@ -5105,6 +5105,12 @@ header-component .header-logo span {
     padding: 0.1rem !important;
   }
 
+  .header-drawer-icon--open svg,
+  .header-drawer-icon--open {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
   /* Show "SU" instead of full shop name on mobile (both normal and transparent/inverse states) */
   .header-logo__image-container--original,
   .header-logo__image-container--inverse {
