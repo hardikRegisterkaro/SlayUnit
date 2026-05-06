@@ -6081,3 +6081,10 @@ header-component[transparent]:not([data-scrolled]) .cart-bubble__text-count {
   opacity: 1;
 }
 
+/* Filter size pills: force white text + black background when selected */
+.facets__pill-input:checked + .facets__pill-label {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
