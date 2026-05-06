@@ -6088,3 +6088,10 @@ header-component[transparent]:not([data-scrolled]) .cart-bubble__text-count {
   font-weight: 600 !important;
 }
 
+/* Smooth scroll site-wide */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
