@@ -98,6 +98,7 @@ class WishlistDrawer extends HTMLElement {
   connectedCallback() {
     this._dialog = this.querySelector('dialog');
     this._list = this.querySelector('.wishlist-drawer__list');
+    this._headingCount = this.querySelector('.wishlist-drawer__count');
 
     this.querySelector('.wishlist-nav__trigger')?.addEventListener('click', () => this.open());
     this.querySelector('.wishlist-drawer__close')?.addEventListener('click', () => this.close());
@@ -105,9 +106,18 @@ class WishlistDrawer extends HTMLElement {
       if (e.target === this._dialog) this.close();
     });
 
+    this._updateHeadingCount();
     window.addEventListener('wishlist:changed', () => {
+      this._updateHeadingCount();
       if (this._dialog?.open) this._render();
     });
+  }
+
+  _updateHeadingCount() {
+    if (!this._headingCount) return;
+    const count = WishlistManager.count();
+    this._headingCount.textContent = count;
+    this._headingCount.hidden = count === 0;
   }
 
   open() {

@@ -81,7 +81,10 @@
     <dialog class="wishlist-drawer__dialog dialog-modal dialog-drawer color-{{ settings.drawer_color_scheme }}">
       <div class="wishlist-drawer__inner">
         <div class="wishlist-drawer__header">
-          <h2 class="wishlist-drawer__heading h4">Wishlist</h2>
+          <h2 class="wishlist-drawer__heading h4">
+            Wishlist
+            <span class="wishlist-drawer__count" hidden>0</span>
+          </h2>
           <button class="wishlist-drawer__close button-unstyled" aria-label="Close wishlist">
             <span class="svg-wrapper">
               {{- 'icon-close.svg' | inline_asset_content -}}

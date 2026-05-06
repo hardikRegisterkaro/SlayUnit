@@ -4274,6 +4274,43 @@ product-recommendations:has([data-has-recommendations='false']) {
   padding-inline: 3rem !important;
 }
 
+/* Hero button: fill left→right on hover */
+.hero__content-wrapper .button-primary,
+.hero__content-wrapper .button-secondary {
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s ease !important;
+  z-index: 0;
+}
+
+.hero__content-wrapper .button-primary::before,
+.hero__content-wrapper .button-secondary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.4s ease;
+  z-index: -1;
+}
+
+.hero__content-wrapper .button-primary:hover::before,
+.hero__content-wrapper .button-secondary:hover::before {
+  transform: scaleX(1);
+}
+
+.hero__content-wrapper .button-primary:hover,
+.hero__content-wrapper .button-secondary:hover {
+  color: #111111 !important;
+}
+
+.hero__content-wrapper .button-primary,
+.hero__content-wrapper .button-secondary {
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+}
+
 /* Modern collection (catalog) page — vertical sidebar layout */
 .product-grid-container {
   max-width: 1440px;
@@ -5162,6 +5199,12 @@ header-component[transparent]:not([data-scrolled]) a,
 header-component[transparent]:not([data-scrolled]) button,
 header-component[transparent]:not([data-scrolled]) cart-icon,
 header-component[transparent]:not([data-scrolled]) cart-icon svg,
+header-component[transparent]:not([data-scrolled]) cart-icon svg path,
+header-component[transparent]:not([data-scrolled]) .action__cart,
+header-component[transparent]:not([data-scrolled]) .action__cart svg,
+header-component[transparent]:not([data-scrolled]) .action__cart svg path,
+header-component[transparent]:not([data-scrolled]) .header-actions__cart-icon,
+header-component[transparent]:not([data-scrolled]) .header-actions__cart-icon svg,
 header-component[transparent]:not([data-scrolled]) search-button svg,
 header-component[transparent]:not([data-scrolled]) .header__icon svg,
 header-component[transparent]:not([data-scrolled]) .header__heading-link,
@@ -5169,6 +5212,11 @@ header-component[transparent]:not([data-scrolled]) .account-button__icon,
 header-component[transparent]:not([data-scrolled]) .account-button__text {
   color: #ffffff !important;
   --color-account-icon: #ffffff !important;
+}
+
+header-component[transparent]:not([data-scrolled]) .action__cart svg path,
+header-component[transparent]:not([data-scrolled]) .header-actions__cart-icon svg path {
+  stroke: #ffffff !important;
 }
 
 /* Scrolled state: solid white header, black text/icons */
@@ -5185,6 +5233,12 @@ header-component[transparent][data-scrolled] a,
 header-component[transparent][data-scrolled] button,
 header-component[transparent][data-scrolled] cart-icon,
 header-component[transparent][data-scrolled] cart-icon svg,
+header-component[transparent][data-scrolled] cart-icon svg path,
+header-component[transparent][data-scrolled] .action__cart,
+header-component[transparent][data-scrolled] .action__cart svg,
+header-component[transparent][data-scrolled] .action__cart svg path,
+header-component[transparent][data-scrolled] .header-actions__cart-icon,
+header-component[transparent][data-scrolled] .header-actions__cart-icon svg,
 header-component[transparent][data-scrolled] search-button svg,
 header-component[transparent][data-scrolled] .header__icon svg,
 header-component[transparent][data-scrolled] .header__heading-link,
@@ -5192,6 +5246,11 @@ header-component[transparent][data-scrolled] .account-button__icon,
 header-component[transparent][data-scrolled] .account-button__text {
   color: #111111 !important;
   --color-account-icon: #111111 !important;
+}
+
+header-component[transparent][data-scrolled] .action__cart svg path,
+header-component[transparent][data-scrolled] .header-actions__cart-icon svg path {
+  stroke: #111111 !important;
 }
 
 /* ===== Cart drawer polish ===== */
@@ -5778,9 +5837,16 @@ header-component[transparent] .menu-drawer span {
   color: #111111 !important;
 }
 
-/* Transparent header at top of page: invert badge so it's legible over hero */
-header-component[transparent]:not([data-scrolled]) .wishlist-nav-badge {
+/* Transparent header at top of page: invert badges so they match the icons */
+header-component[transparent]:not([data-scrolled]) .wishlist-nav-badge,
+header-component[transparent]:not([data-scrolled]) .cart-bubble__background {
   background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+header-component[transparent]:not([data-scrolled]) .wishlist-nav-badge,
+header-component[transparent]:not([data-scrolled]) .cart-bubble__text,
+header-component[transparent]:not([data-scrolled]) .cart-bubble__text-count {
   color: #111111 !important;
 }
 
@@ -5892,6 +5958,28 @@ header-component[transparent]:not([data-scrolled]) .wishlist-nav-badge {
 
 .wishlist-drawer__heading {
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wishlist-drawer__count[hidden] {
+  display: none;
+}
+
+.wishlist-drawer__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  color: #111;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .wishlist-drawer__close {
