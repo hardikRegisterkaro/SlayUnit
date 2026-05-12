@@ -5148,19 +5148,63 @@ header-component .header-logo span {
     height: 22px !important;
   }
 
-  /* Show "SU" instead of full shop name on mobile (both normal and transparent/inverse states) */
+  /* Hide the desktop text/image containers on mobile and show the SU mark instead */
   .header-logo__image-container--original,
   .header-logo__image-container--inverse {
-    font-size: 0 !important;
+    display: none !important;
   }
 
-  .header-logo__image-container--original::before,
-  .header-logo__image-container--inverse::before {
-    content: 'SU';
-    font-size: 1.1rem;
-    font-weight: 800;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+  .header-logo__mobile-mark--black {
+    display: block !important;
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+  }
+
+  .header-logo__mobile-mark--white {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+  }
+
+  /* Transparent navbar at top of page: show white mark, hide black */
+  header-component[transparent]:not([data-scrolled]) .header-logo__mobile-mark--black {
+    display: none !important;
+  }
+
+  header-component[transparent]:not([data-scrolled]) .header-logo__mobile-mark--white {
+    display: block !important;
+  }
+}
+
+/* SU brand marks — replace the default shop.name text fallback completely */
+.header-logo__image-container--original,
+.header-logo__image-container--inverse {
+  display: none !important;
+}
+
+.header-logo__mobile-mark {
+  display: none;
+}
+
+.header-logo__desktop-mark {
+  display: none;
+  width: auto;
+  height: 60px;
+  object-fit: contain;
+}
+
+@media (min-width: 750px) {
+  .header-logo__desktop-mark--black {
+    display: block;
+  }
+
+  header-component[transparent]:not([data-scrolled]) .header-logo__desktop-mark--black {
+    display: none;
+  }
+
+  header-component[transparent]:not([data-scrolled]) .header-logo__desktop-mark--white {
+    display: block;
   }
 }
 

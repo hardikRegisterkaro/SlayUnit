@@ -80,6 +80,41 @@
       %}
     </span>
   {% endif %}
+
+  <img
+    src="{{ 'SULogoSmallBlack.png' | asset_url }}"
+    class="header-logo__mobile-mark header-logo__mobile-mark--black"
+    alt=""
+    width="36"
+    height="36"
+    loading="eager"
+    decoding="async"
+  >
+  <img
+    src="{{ 'SULogoSmallWhite.png' | asset_url }}"
+    class="header-logo__mobile-mark header-logo__mobile-mark--white"
+    alt=""
+    width="36"
+    height="36"
+    loading="eager"
+    decoding="async"
+  >
+  <img
+    src="{{ 'SULogoBigBlack.png' | asset_url }}"
+    class="header-logo__desktop-mark header-logo__desktop-mark--black"
+    alt="{{ shop.name }}"
+    height="60"
+    loading="eager"
+    decoding="async"
+  >
+  <img
+    src="{{ 'SULogoBigWhite.png' | asset_url }}"
+    class="header-logo__desktop-mark header-logo__desktop-mark--white"
+    alt=""
+    height="60"
+    loading="eager"
+    decoding="async"
+  >
 </a>
 
 {% stylesheet %}
