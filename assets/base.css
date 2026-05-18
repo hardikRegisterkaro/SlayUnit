@@ -6279,12 +6279,24 @@ header-component[transparent]:not([data-scrolled]) .cart-bubble__text-count {
   header-component .header-actions__cart-icon > .svg-wrapper {
     position: relative !important;
     z-index: 5 !important;
+    background: transparent !important;
   }
 
-  /* Hide any non-essential children of cart-icon that could overlap the SVG */
-  header-component .header-actions__cart-icon > span:not(.svg-wrapper):not(.cart-bubble),
-  header-component .header-actions__cart-icon > .hidden {
+  /* Aggressively hide every child of cart-icon that isn't the SVG or the bubble */
+  header-component .header-actions__cart-icon > *:not(.svg-wrapper):not(.cart-bubble):not(svg) {
     display: none !important;
+  }
+
+  /* Make the cart button transparent until hovered — nothing can paint a white square */
+  header-component .header-actions__action.action__cart,
+  header-component .header-actions__action:has(cart-icon) {
+    background: transparent !important;
+  }
+
+  /* Disable any cart-bubble grow animation that could scale a phantom background */
+  header-component .cart-bubble--animating .cart-bubble__background,
+  header-component .cart-bubble--animating .cart-bubble__text {
+    animation: none !important;
   }
 
   /* Cart bubble: collapse to a single black circle matching the wishlist badge */
