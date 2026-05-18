@@ -6272,35 +6272,19 @@ header-component[transparent]:not([data-scrolled]) .cart-bubble__text-count {
     padding: 0 !important;
   }
 
-  /* Cart icon SVG always on top — hides any phantom bubble background covering the icon */
-  header-component .header-actions__action .svg-wrapper,
-  header-component .header-actions__cart-icon .svg-wrapper,
-  header-component .header-actions__action cart-icon > .svg-wrapper,
-  header-component .header-actions__cart-icon > .svg-wrapper {
+  /* Cart icon: badge that behaves exactly like the wishlist badge.
+     Anchor positioning to the .header-actions__action button (the 40x40 square),
+     hide the cart-bubble's internal background/text wrappers, and show only
+     the count number on a single black circle. */
+  header-component .header-actions__action:has(cart-icon),
+  header-component .header-actions__action.action__cart {
     position: relative !important;
-    z-index: 5 !important;
-    background: transparent !important;
   }
 
-  /* Aggressively hide every child of cart-icon that isn't the SVG or the bubble */
-  header-component .header-actions__cart-icon > *:not(.svg-wrapper):not(.cart-bubble):not(svg) {
-    display: none !important;
+  header-component .header-actions__action .header-actions__cart-icon {
+    position: static !important;
   }
 
-  /* Make the cart button transparent until hovered — nothing can paint a white square */
-  header-component .header-actions__action.action__cart,
-  header-component .header-actions__action:has(cart-icon) {
-    background: transparent !important;
-  }
-
-  /* Disable any cart-bubble grow animation that could scale a phantom background */
-  header-component .cart-bubble--animating .cart-bubble__background,
-  header-component .cart-bubble--animating .cart-bubble__text {
-    animation: none !important;
-  }
-
-  /* Cart bubble: collapse to a single black circle matching the wishlist badge */
-  header-component .header-actions__action .cart-bubble,
   header-component .header-actions__cart-icon .cart-bubble {
     position: absolute !important;
     top: -4px !important;
@@ -6313,45 +6297,36 @@ header-component[transparent]:not([data-scrolled]) .cart-bubble__text-count {
     aspect-ratio: 1 !important;
     border-radius: 50% !important;
     background: #111111 !important;
-    background-color: #111111 !important;
     color: #ffffff !important;
     padding: 0 !important;
-    border: none !important;
+    border: 0 !important;
     box-shadow: none !important;
-    outline: none !important;
-    overflow: hidden !important;
-    display: inline-flex !important;
+    display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    pointer-events: none !important;
   }
 
-  /* Kill the inner background span — outer container is now the visible circle */
-  header-component .header-actions__action .cart-bubble .cart-bubble__background,
-  header-component .header-actions__cart-icon .cart-bubble .cart-bubble__background {
-    background: transparent !important;
-    background-color: transparent !important;
+  /* Collapse the cart-bubble's inner wrappers so only the count text shows */
+  header-component .header-actions__cart-icon .cart-bubble__background {
     display: none !important;
   }
 
-  header-component .header-actions__action .cart-bubble .cart-bubble__text,
-  header-component .header-actions__cart-icon .cart-bubble .cart-bubble__text,
-  header-component .header-actions__action .cart-bubble .cart-bubble__text-count,
-  header-component .header-actions__cart-icon .cart-bubble .cart-bubble__text-count {
+  header-component .header-actions__cart-icon .cart-bubble__text {
+    position: static !important;
+    display: contents !important;
+    background: transparent !important;
+  }
+
+  header-component .header-actions__cart-icon .cart-bubble__text-count {
     color: #ffffff !important;
     background: transparent !important;
     font-size: 10px !important;
     font-weight: 700 !important;
     line-height: 1 !important;
-    position: static !important;
-  }
-
-  /* Make sure the cart-icon (positioning context) fills the button */
-  header-component .header-actions__action {
-    position: relative !important;
-  }
-
-  header-component .header-actions__action .header-actions__cart-icon {
-    position: static !important;
   }
 
   /* Wishlist badge repositioned inside the squared button */
