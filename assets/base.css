@@ -6272,32 +6272,59 @@ header-component[transparent]:not([data-scrolled]) .cart-bubble__text-count {
     padding: 0 !important;
   }
 
-  /* Cart bubble: match wishlist badge exactly (single black circle, no white ring) */
+  /* Cart bubble: collapse to a single black circle matching the wishlist badge */
+  header-component .header-actions__action .cart-bubble,
   header-component .header-actions__cart-icon .cart-bubble {
+    position: absolute !important;
     top: -4px !important;
     right: -4px !important;
+    left: auto !important;
+    bottom: auto !important;
     width: 18px !important;
     min-width: 18px !important;
     height: 18px !important;
     aspect-ratio: 1 !important;
     border-radius: 50% !important;
     background: #111111 !important;
+    background-color: #111111 !important;
     color: #ffffff !important;
     padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    overflow: hidden !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
-  header-component .header-actions__cart-icon .cart-bubble__background {
-    background: #111111 !important;
-    background-color: #111111 !important;
-    border-radius: 50% !important;
+  /* Kill the inner background span — outer container is now the visible circle */
+  header-component .header-actions__action .cart-bubble .cart-bubble__background,
+  header-component .header-actions__cart-icon .cart-bubble .cart-bubble__background {
+    background: transparent !important;
+    background-color: transparent !important;
+    display: none !important;
   }
 
-  header-component .header-actions__cart-icon .cart-bubble__text,
-  header-component .header-actions__cart-icon .cart-bubble__text-count {
+  header-component .header-actions__action .cart-bubble .cart-bubble__text,
+  header-component .header-actions__cart-icon .cart-bubble .cart-bubble__text,
+  header-component .header-actions__action .cart-bubble .cart-bubble__text-count,
+  header-component .header-actions__cart-icon .cart-bubble .cart-bubble__text-count {
     color: #ffffff !important;
+    background: transparent !important;
     font-size: 10px !important;
     font-weight: 700 !important;
     line-height: 1 !important;
+    position: static !important;
+  }
+
+  /* Make sure the cart-icon (positioning context) fills the button */
+  header-component .header-actions__action {
+    position: relative !important;
+  }
+
+  header-component .header-actions__action .header-actions__cart-icon {
+    position: static !important;
   }
 
   /* Wishlist badge repositioned inside the squared button */
