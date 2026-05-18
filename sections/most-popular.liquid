@@ -3,6 +3,10 @@
   assign collection = collections[section.settings.collection]
 -%}
 
+{% render 'quick-add-styles' %}
+{% render 'quick-add-modal-styles' %}
+{% render 'product-badges-styles' %}
+
 <section class="most-popular">
   <div class="most-popular__inner">
     <header class="most-popular__header">
@@ -22,35 +26,11 @@
 
     <div class="most-popular__track" data-popular-track>
       {%- for product in collection.products limit: limit -%}
-        <a href="{{ product.url }}" class="most-popular__card">
-          <div class="most-popular__media">
-            {%- if product.featured_media != blank -%}
-              {{ product.featured_media | image_url: width: 700 | image_tag:
-                loading: 'lazy',
-                class: 'most-popular__image',
-                alt: product.title }}
-            {%- endif -%}
-            <wishlist-button
-              class="wishlist-btn most-popular__wishlist"
-              data-product-id="{{ product.id }}"
-              data-handle="{{ product.handle }}"
-              data-title="{{ product.title | escape }}"
-              data-price="{{ product.price | money }}"
-              data-image="{{ product.featured_media | image_url: width: 400 }}"
-              data-url="{{ product.url }}"
-              aria-label="Add to wishlist"
-              aria-pressed="false"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-              </svg>
-            </wishlist-button>
-          </div>
-          <div class="most-popular__info">
-            <h3 class="most-popular__name">{{ product.title }}</h3>
-            <span class="most-popular__price">{{ product.price | money }}</span>
-          </div>
-        </a>
+        <div class="most-popular__item">
+          {% # theme-check-disable UniqueStaticBlockId %}
+          {% content_for 'block', type: '_product-card', id: 'static-product-card', closest.product: product %}
+          {% # theme-check-enable UniqueStaticBlockId %}
+        </div>
       {%- endfor -%}
     </div>
   </div>
@@ -63,7 +43,7 @@
     const arrows = document.querySelectorAll('.most-popular__arrow');
     arrows.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const card = track.querySelector('.most-popular__card');
+        const card = track.querySelector('.most-popular__item');
         const step = card ? card.getBoundingClientRect().width + 28 : 280;
         const dir = btn.dataset.dir === 'next' ? 1 : -1;
         track.scrollBy({ left: dir * step * 2, behavior: 'smooth' });
@@ -150,89 +130,19 @@
     display: none;
   }
 
-  .most-popular__card {
+  .most-popular__item {
     flex: 0 0 calc((100% - 28px * 3) / 4);
-    text-decoration: none;
-    color: inherit;
     scroll-snap-align: start;
+    min-width: 0;
   }
 
-  .most-popular__media {
-    position: relative;
+  .most-popular__item > product-card {
     width: 100%;
-    aspect-ratio: 4 / 5;
-    background: #f4f4f4;
-    overflow: hidden;
-    margin-bottom: 14px;
-  }
-
-  .most-popular__wishlist {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    width: auto;
-    height: auto;
-    padding: 0;
-    background: transparent;
-    border: none;
-    color: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 2;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
-    transition: color 0.15s ease;
-  }
-
-  .most-popular__wishlist:hover {
-    color: #d8362a;
-  }
-
-  .most-popular__wishlist[aria-pressed="true"] {
-    color: #d8362a;
-  }
-
-  .most-popular__wishlist[aria-pressed="true"] svg {
-    fill: currentColor;
-  }
-
-  .most-popular__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     display: block;
-    transition: transform 0.4s ease;
-  }
-
-  .most-popular__card:hover .most-popular__image {
-    transform: scale(1.04);
-  }
-
-  .most-popular__info {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .most-popular__name {
-    font-family: 'Manrope', system-ui, sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin: 0;
-  }
-
-  .most-popular__price {
-    font-family: 'Manrope', system-ui, sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
-    opacity: 0.75;
   }
 
   @media (max-width: 1100px) {
-    .most-popular__card {
+    .most-popular__item {
       flex: 0 0 calc((100% - 28px * 2) / 3);
     }
   }
@@ -251,7 +161,7 @@
       height: 36px;
     }
 
-    .most-popular__card {
+    .most-popular__item {
       flex: 0 0 calc((100% - 16px) / 2);
     }
 
@@ -264,12 +174,67 @@
 {% schema %}
 {
   "name": "Most popular",
+  "blocks": [
+    { "type": "_product-card" }
+  ],
   "settings": [
     { "type": "text", "id": "title", "label": "Title", "default": "Most Popular" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "SHOP THE BESTSELLERS" },
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "product_limit", "label": "Max products", "min": 4, "max": 16, "step": 1, "default": 8 }
   ],
-  "presets": [{ "name": "Most popular" }]
+  "presets": [
+    {
+      "name": "Most popular",
+      "blocks": {
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "Product card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 4
+          },
+          "blocks": {
+            "product-card-gallery": {
+              "type": "_product-card-gallery",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0
+              }
+            },
+            "product_title": {
+              "type": "product-title",
+              "settings": {
+                "width": "fit-content",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font_size": "1rem",
+                "case": "uppercase",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 8,
+                "padding-block-end": 0
+              }
+            },
+            "price": {
+              "type": "price",
+              "settings": {
+                "show_sale_price_first": true,
+                "type_preset": "h6",
+                "alignment": "left",
+                "font_size": "1rem",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              }
+            }
+          },
+          "block_order": ["product-card-gallery", "product_title", "price"]
+        }
+      }
+    }
+  ]
 }
 {% endschema %}
