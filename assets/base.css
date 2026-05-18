@@ -6347,3 +6347,40 @@ header-component .menu-list__item--active {
   text-decoration-thickness: 2px;
 }
 
+/* =========================================================
+   CATALOG PRODUCT GRID — 4 columns, zero gap, shared borders
+   ========================================================= */
+.product-grid {
+  --product-grid-gap: 0px !important;
+  --product-grid-gap-desktop: 0px 0px !important;
+  --product-grid-gap-mobile: 0px 0px !important;
+  --product-grid-columns-desktop: repeat(4, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+}
+
+@media (max-width: 990px) {
+  .product-grid {
+    --product-grid-columns-desktop: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+.product-grid__item {
+  border: 1px solid #111 !important;
+  margin-left: -1px;
+  margin-top: -1px;
+  background: #fff;
+  position: relative;
+}
+
+.product-grid__item:hover {
+  z-index: 1;
+}
+
+/* Remove any inner padding from product card inside grid item */
+.product-grid__item product-card,
+.product-grid__item .product-card {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
