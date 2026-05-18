@@ -1,0 +1,115 @@
+{%- liquid
+  assign bg = section.settings.bg_color | default: '#ffffff'
+  assign text = section.settings.text_color | default: '#111111'
+  assign icon = section.settings.icon_color | default: '#d8362a'
+  assign border = section.settings.border_color | default: '#111111'
+-%}
+
+<div class="trust-marquee" style="--tm-bg: {{ bg }}; --tm-text: {{ text }}; --tm-icon: {{ icon }}; --tm-border: {{ border }};" aria-hidden="true">
+  <div class="trust-marquee__track">
+    {% for i in (1..2) %}
+      <div class="trust-marquee__group">
+        <span class="trust-marquee__item">
+          <svg class="trust-marquee__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <span>FREE GLOBAL SHIPPING OVER $200</span>
+        </span>
+        <span class="trust-marquee__item">
+          <svg class="trust-marquee__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          <span>30-DAY FREE RETURNS</span>
+        </span>
+        <span class="trust-marquee__item">
+          <svg class="trust-marquee__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>SECURE CHECKOUT PROCESS</span>
+        </span>
+        <span class="trust-marquee__item">
+          <svg class="trust-marquee__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-7h3zM3 19a2 2 0 0 0 2 2h1v-7H3z"/></svg>
+          <span>24/7 PRIORITY SUPPORT</span>
+        </span>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .trust-marquee {
+    background: var(--tm-bg);
+    color: var(--tm-text);
+    border-top: 1px solid var(--tm-border);
+    border-bottom: 1px solid var(--tm-border);
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .trust-marquee__track {
+    display: flex;
+    width: max-content;
+    padding-block: 18px;
+    animation: trust-marquee 30s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .trust-marquee__group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .trust-marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 32px;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .trust-marquee__icon {
+    color: var(--tm-icon);
+    flex-shrink: 0;
+  }
+
+  @keyframes trust-marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  @media (max-width: 749px) {
+    .trust-marquee__item {
+      padding: 0 20px;
+      font-size: 0.72rem;
+    }
+
+    .trust-marquee__icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .trust-marquee__track {
+      padding-block: 14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trust-marquee__track {
+      animation: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Trust marquee",
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#111111" },
+    { "type": "color", "id": "icon_color", "label": "Icon", "default": "#d8362a" },
+    { "type": "color", "id": "border_color", "label": "Border", "default": "#111111" }
+  ],
+  "presets": [{ "name": "Trust marquee" }]
+}
+{% endschema %}

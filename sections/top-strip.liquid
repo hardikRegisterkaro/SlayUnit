@@ -1,0 +1,193 @@
+{%- liquid
+  assign email = section.settings.email | default: 'info@slayunit.com'
+  assign hours = section.settings.hours | default: 'HOURS: MON - SAT: 10:00 AM - 8:00 PM'
+  assign instagram = section.settings.instagram_url
+  assign tiktok = section.settings.tiktok_url
+  assign twitter = section.settings.twitter_url
+-%}
+
+<div class="top-strip" style="--top-strip-bg: {{ section.settings.bg_color }}; --top-strip-text: {{ section.settings.text_color }};">
+  <div class="top-strip__marquee" aria-hidden="true">
+    <div class="top-strip__marquee-track">
+      {% for i in (1..2) %}
+        <div class="top-strip__marquee-group">
+          <span>✉ {{ email | upcase }}</span>
+          <span>•</span>
+          <span>{{ hours }}</span>
+          <span>•</span>
+          <span>FREE SHIPPING OVER ₹2,999</span>
+          <span>•</span>
+          <span>NEW DROP EVERY FRIDAY</span>
+          <span>•</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="top-strip__inner">
+    <div class="top-strip__left">
+      <a href="mailto:{{ email }}" class="top-strip__item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <span>{{ email | upcase }}</span>
+      </a>
+      <span class="top-strip__item top-strip__item--static">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>{{ hours }}</span>
+      </span>
+    </div>
+
+    <div class="top-strip__right">
+      <span class="top-strip__item top-strip__item--static">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span>ENGLISH</span>
+      </span>
+
+      {% if instagram != blank %}
+        <a href="{{ instagram }}" target="_blank" rel="noopener" class="top-strip__icon" aria-label="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+      {% endif %}
+      {% if tiktok != blank %}
+        <a href="{{ tiktok }}" target="_blank" rel="noopener" class="top-strip__icon" aria-label="TikTok">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.8a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.23z"/>
+          </svg>
+        </a>
+      {% endif %}
+      {% if twitter != blank %}
+        <a href="{{ twitter }}" target="_blank" rel="noopener" class="top-strip__icon" aria-label="Twitter">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .top-strip {
+    background: var(--top-strip-bg, #d8362a);
+    color: var(--top-strip-text, #ffffff);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  .top-strip__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 8px 24px;
+  }
+
+  .top-strip__left,
+  .top-strip__right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+
+  .top-strip__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: inherit;
+    text-decoration: none;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .top-strip__item:hover {
+    opacity: 0.85;
+  }
+
+  .top-strip__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    width: 22px;
+    height: 22px;
+  }
+
+  .top-strip__icon:hover {
+    opacity: 0.85;
+  }
+
+  /* Marquee — only visible on mobile */
+  .top-strip__marquee {
+    display: none;
+    overflow: hidden;
+    width: 100%;
+    padding-block: 7px;
+  }
+
+  .top-strip__marquee-track {
+    display: flex;
+    width: max-content;
+    animation: top-strip-marquee 22s linear infinite;
+  }
+
+  .top-strip__marquee-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-right: 16px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+
+  @keyframes top-strip-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media screen and (max-width: 749px) {
+    .top-strip__inner {
+      display: none;
+    }
+
+    .top-strip__marquee {
+      display: block;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Top strip",
+  "settings": [
+    { "type": "text", "id": "email", "label": "Email", "default": "info@slayunit.com" },
+    { "type": "text", "id": "hours", "label": "Hours", "default": "HOURS: MON - SAT: 10:00 AM - 8:00 PM" },
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#d8362a" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#ffffff" },
+    { "type": "header", "content": "Social links" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+    { "type": "url", "id": "tiktok_url", "label": "TikTok URL" },
+    { "type": "url", "id": "twitter_url", "label": "Twitter URL" }
+  ],
+  "presets": [{ "name": "Top strip" }]
+}
+{% endschema %}

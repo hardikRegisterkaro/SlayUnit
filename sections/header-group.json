@@ -11,6 +11,19 @@
   "type": "header",
   "name": "Header",
   "sections": {
+    "top_strip_section": {
+      "type": "top-strip",
+      "settings": {
+        "email": "info@slayunit.com",
+        "hours": "HOURS: MON - SAT: 10:00 AM - 8:00 PM",
+        "bg_color": "#d8362a",
+        "text_color": "#ffffff",
+        "instagram_url": "https://www.instagram.com/",
+        "tiktok_url": "https://www.tiktok.com/",
+        "twitter_url": "https://x.com/"
+      },
+      "blocks": {}
+    },
     "header_section": {
       "type": "header",
       "blocks": {
@@ -72,7 +85,7 @@
         "color_scheme_top": "scheme-1",
         "color_scheme_bottom": "",
         "color_scheme_transparent": "scheme-6",
-        "enable_transparent_header_home": true,
+        "enable_transparent_header_home": false,
         "home_color_scheme": "inverse",
         "enable_transparent_header_product": false,
         "product_color_scheme": "default",
@@ -82,6 +95,7 @@
     }
   },
   "order": [
+    "top_strip_section",
     "header_section"
   ]
 }

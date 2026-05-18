@@ -1,0 +1,441 @@
+{%- liquid
+  assign collection = collections[section.settings.collection]
+  assign products = collection.products
+  assign flagship = products[0]
+  assign tile1 = products[1]
+  assign tile2 = products[2]
+  assign tile3 = products[3]
+-%}
+
+<section class="just-dropped">
+  <div class="just-dropped__inner">
+    <header class="just-dropped__header">
+      <div>
+        <h2 class="just-dropped__title">{{ section.settings.title }}</h2>
+        <p class="just-dropped__eyebrow">{{ section.settings.eyebrow }}</p>
+      </div>
+      {% if section.settings.cta_link != blank and section.settings.cta_label != blank %}
+        <a href="{{ section.settings.cta_link }}" class="just-dropped__cta">{{ section.settings.cta_label }}</a>
+      {% endif %}
+    </header>
+
+    <div class="just-dropped__grid">
+      {% if flagship %}
+        <a href="{{ flagship.url }}" class="just-dropped__flagship">
+          <div class="just-dropped__media just-dropped__media--tall">
+            {% if flagship.featured_media != blank %}
+              {{ flagship.featured_media | image_url: width: 1200 | image_tag:
+                loading: 'lazy',
+                class: 'just-dropped__image',
+                alt: flagship.title }}
+            {% endif %}
+            <span class="just-dropped__tag just-dropped__tag--flagship">{{ section.settings.flagship_label }}</span>
+          </div>
+          <div class="just-dropped__flagship-info">
+            <div class="just-dropped__flagship-text">
+              <h3 class="just-dropped__flagship-title">{{ flagship.title }}</h3>
+              <p class="just-dropped__flagship-sub">{{ section.settings.flagship_sub }}</p>
+            </div>
+            <span class="just-dropped__flagship-price">{{ flagship.price | money }}</span>
+          </div>
+        </a>
+      {% endif %}
+
+      {% for product in products limit: 3 offset: 1 %}
+        <a href="{{ product.url }}" class="just-dropped__tile">
+          <div class="just-dropped__media">
+            {% if product.featured_media != blank %}
+              {{ product.featured_media | image_url: width: 700 | image_tag:
+                loading: 'lazy',
+                class: 'just-dropped__image just-dropped__image--contain',
+                alt: product.title }}
+            {% endif %}
+          </div>
+          <div class="just-dropped__tile-info">
+            <div>
+              <h3 class="just-dropped__tile-title">{{ product.title }}</h3>
+              <p class="just-dropped__tile-sub">{{ product.metafields.custom.color | default: product.vendor }}</p>
+            </div>
+            <span class="just-dropped__tile-price">{{ product.price | money }}</span>
+          </div>
+        </a>
+      {% endfor %}
+
+      {% if section.settings.promo_show %}
+        <a href="{{ section.settings.promo_link }}" class="just-dropped__promo">
+          <h3 class="just-dropped__promo-title">{{ section.settings.promo_title }}</h3>
+          <p class="just-dropped__promo-body">{{ section.settings.promo_body }}</p>
+          <span class="just-dropped__promo-cta">{{ section.settings.promo_cta }}</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .just-dropped {
+    background: #fff;
+    color: #111;
+  }
+
+  .just-dropped__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 56px 36px;
+  }
+
+  .just-dropped__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #111;
+  }
+
+  .just-dropped__title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+  }
+
+  .just-dropped__eyebrow {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  .just-dropped__cta {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #111;
+    text-decoration: none;
+    border: 1px solid #111;
+    padding: 10px 16px;
+    transition: background 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .just-dropped__cta:hover {
+    background: #111;
+    color: #fff;
+  }
+
+  .just-dropped__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: 420px 420px;
+    gap: 28px;
+    margin-top: 28px;
+  }
+
+  .just-dropped__flagship {
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    background: #f4f4f4;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+  }
+
+  .just-dropped__media {
+    position: relative;
+    background: #f4f4f4;
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  .just-dropped__media--tall {
+    height: 100%;
+  }
+
+  .just-dropped__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .just-dropped__image--contain {
+    object-fit: cover;
+  }
+
+  .just-dropped__tag {
+    position: absolute;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+  }
+
+  .just-dropped__tag--flagship {
+    left: 18px;
+    bottom: 78px;
+    background: #d8362a;
+    color: #fff;
+  }
+
+  .just-dropped__tag--lowstock {
+    top: 12px;
+    left: 12px;
+    background: #fff;
+    color: #111;
+    border: 1px solid #111;
+  }
+
+  .just-dropped__wishlist {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #e3e3e3;
+    color: #111;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .just-dropped__wishlist:hover {
+    background: #111;
+    color: #fff;
+  }
+
+  .just-dropped__flagship-info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 20px;
+    color: #fff;
+    background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+  }
+
+  .just-dropped__flagship-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0 0 4px;
+  }
+
+  .just-dropped__flagship-sub {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .just-dropped__flagship-price {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .just-dropped__tile {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+
+  .just-dropped__tile:hover {
+    border-color: #111;
+  }
+
+  .just-dropped__tile-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  .just-dropped__tile-title {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 2px;
+  }
+
+  .just-dropped__tile-sub {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.66rem;
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  .just-dropped__tile-price {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .just-dropped__promo {
+    background: #d8362a;
+    color: #fff;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    gap: 8px;
+  }
+
+  .just-dropped__promo-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .just-dropped__promo-body {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0;
+    max-width: 200px;
+    line-height: 1.45;
+  }
+
+  .just-dropped__promo-cta {
+    margin-top: 10px;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: #fff;
+    color: #d8362a;
+    padding: 9px 16px;
+    transition: opacity 0.15s ease;
+  }
+
+  .just-dropped__promo:hover .just-dropped__promo-cta {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 1100px) {
+    .just-dropped__grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 380px 240px 240px;
+    }
+
+    .just-dropped__flagship {
+      grid-row: 1;
+      grid-column: span 2;
+      height: 380px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .just-dropped__inner {
+      padding: 40px 16px;
+    }
+
+    .just-dropped__title {
+      font-size: 1.9rem;
+    }
+
+    .just-dropped__cta {
+      padding: 9px 12px;
+      font-size: 0.6rem;
+    }
+
+    .just-dropped__grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 520px 300px 300px;
+      gap: 10px;
+    }
+
+    .just-dropped__flagship {
+      grid-column: span 2;
+      height: 520px;
+    }
+
+    .just-dropped__flagship-title {
+      font-size: 1.2rem;
+    }
+
+    .just-dropped__tag--flagship {
+      bottom: 70px;
+      left: 12px;
+    }
+
+    .just-dropped__flagship-info {
+      padding: 14px 14px;
+    }
+
+    .just-dropped__promo {
+      padding: 18px 14px;
+    }
+
+    .just-dropped__promo-title {
+      font-size: 1.2rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Just dropped",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "JUST DROPPED" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "VOLUME 04 // THE INDUSTRIAL COLLECTION" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "VIEW COMPLETE DROP" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" },
+    { "type": "header", "content": "Flagship" },
+    { "type": "text", "id": "flagship_label", "label": "Flagship label", "default": "FLAGSHIP PIECE" },
+    { "type": "text", "id": "flagship_sub", "label": "Flagship subtitle", "default": "Technical Shell / Series 01" },
+    { "type": "header", "content": "Promo card" },
+    { "type": "checkbox", "id": "promo_show", "label": "Show promo card", "default": true },
+    { "type": "text", "id": "promo_title", "label": "Promo title", "default": "Summer Sale" },
+    { "type": "text", "id": "promo_body", "label": "Promo body", "default": "Up to 60% off selected archive pieces" },
+    { "type": "text", "id": "promo_cta", "label": "Promo CTA", "default": "SHOP ARCHIVE" },
+    { "type": "url", "id": "promo_link", "label": "Promo link" }
+  ],
+  "presets": [{ "name": "Just dropped" }]
+}
+{% endschema %}

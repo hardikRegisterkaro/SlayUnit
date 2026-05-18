@@ -15,13 +15,13 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p>DRESS LOUD. LIVE LOUDER.</p>",
+            "text": "<p>DRESS LOUD.<br>LIVE LOUDER.</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "center",
             "type_preset": "h1",
-            "font": "var(--font-heading--family)",
-            "font_size": "8rem",
+            "font": "'Playfair Display', serif",
+            "font_size": "120px",
             "line_height": "0.9",
             "letter_spacing": "-0.02em",
             "case": "uppercase",
@@ -41,13 +41,13 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>Bold pieces made to slay. Drop in and find your fit.</p>",
+            "text": "<p>Industrial Aesthetics. Uncompromising Design. The New Uniform For The Fearless.</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "center",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
-            "font_size": "1rem",
+            "font_size": "1.5rem",
             "line_height": "normal",
             "letter_spacing": "normal",
             "case": "none",
@@ -67,10 +67,10 @@
           "type": "button",
           "name": "t:names.button",
           "settings": {
-            "label": "BUY NOW",
+            "label": "ENTER CATALOG →",
             "link": "shopify://collections/all",
             "open_in_new_tab": false,
-            "style_class": "button-secondary",
+            "style_class": "button-primary",
             "width": "fit-content",
             "custom_width": 100,
             "width_mobile": "fit-content",
@@ -96,10 +96,10 @@
         "content_direction": "column",
         "vertical_on_mobile": true,
         "horizontal_alignment": "center",
-        "vertical_alignment": "flex-end",
+        "vertical_alignment": "center",
         "align_baseline": true,
         "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
+        "vertical_alignment_flex_direction_column": "center",
         "gap": 24,
         "section_width": "full-width",
         "section_height": "full-screen",
@@ -115,204 +115,46 @@
         "padding-block-end": 72
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<p>JUST DROPPED</p>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "center",
-                "type_preset": "custom",
-                "font": "var(--font-heading--family)",
-                "font_size": "2.25rem",
-                "line_height": "1",
-                "letter_spacing": "0.04em",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "color": "#444444",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 2,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 16,
-                "padding-block-end": 2,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
-        }
-      },
-      "name": "Featured collection",
+    "just_dropped_b3X": {
+      "type": "just-dropped",
       "settings": {
+        "title": "JUST DROPPED",
+        "eyebrow": "VOLUME 04 // THE INDUSTRIAL COLLECTION",
         "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 4,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 24,
-        "rows_gap": 32,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 32,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 32,
-        "padding-block-end": 32
-      }
-    },
-    "bento_banners_x8K": {
-      "type": "bento-banners",
-      "settings": {
-        "right_eyebrow": "WE'D LOVE TO HEAR FROM YOU",
-        "right_title": "CONTACT US",
-        "right_body": "Questions about orders, sizing, or collabs? Reach out anytime.",
-        "right_cta": "Get in touch",
-        "right_link": "/pages/contact"
+        "cta_label": "VIEW COMPLETE DROP",
+        "cta_link": "shopify://collections/all",
+        "flagship_label": "FLAGSHIP PIECE",
+        "flagship_sub": "Technical Shell / Series 01",
+        "promo_show": true,
+        "promo_title": "Summer Sale",
+        "promo_body": "Up to 60% off selected archive pieces",
+        "promo_cta": "SHOP ARCHIVE",
+        "promo_link": "shopify://collections/all"
       }
     },
     "browse_collections_p2M": {
       "type": "browse-collections",
       "settings": {}
+    },
+    "trust_marquee_a1B": {
+      "type": "trust-marquee",
+      "settings": {}
+    },
+    "most_popular_c4Y": {
+      "type": "most-popular",
+      "settings": {
+        "title": "Most Popular",
+        "eyebrow": "SHOP THE BESTSELLERS",
+        "collection": "all",
+        "product_limit": 8
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
-    "product_list_fa6P9H",
-    "bento_banners_x8K",
-    "browse_collections_p2M"
+    "browse_collections_p2M",
+    "trust_marquee_a1B",
+    "just_dropped_b3X",
+    "most_popular_c4Y"
   ]
 }

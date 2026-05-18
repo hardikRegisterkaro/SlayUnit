@@ -328,11 +328,11 @@
 
   {% if media_count == 0 %}
     <img
-      src="{{ 'heroImage.jpg' | asset_url }}"
+      src="{{ 'heroImage.webp' | asset_url }}"
       alt=""
       class="hero__media"
-      width="5184"
-      height="3456"
+      width="5760"
+      height="3600"
       loading="eager"
       decoding="async"
       fetchpriority="{{ fetch_priority }}"
@@ -368,7 +368,7 @@
     }}
   {% endif %}
   {% if media_count == 0 %}
-    <img src="{{ 'heroImage.jpg' | asset_url }}" alt="" class="hero__media" width="5184" height="3456" loading="lazy" decoding="async">
+    <img src="{{ 'heroImage.webp' | asset_url }}" alt="" class="hero__media" width="5760" height="3600" loading="lazy" decoding="async">
   {% endif %}
 {% endcapture %}
 
