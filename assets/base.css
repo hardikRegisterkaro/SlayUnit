@@ -6272,6 +6272,21 @@ header-component[transparent]:not([data-scrolled]) .cart-bubble__text-count {
     padding: 0 !important;
   }
 
+  /* Cart icon SVG always on top — hides any phantom bubble background covering the icon */
+  header-component .header-actions__action .svg-wrapper,
+  header-component .header-actions__cart-icon .svg-wrapper,
+  header-component .header-actions__action cart-icon > .svg-wrapper,
+  header-component .header-actions__cart-icon > .svg-wrapper {
+    position: relative !important;
+    z-index: 5 !important;
+  }
+
+  /* Hide any non-essential children of cart-icon that could overlap the SVG */
+  header-component .header-actions__cart-icon > span:not(.svg-wrapper):not(.cart-bubble),
+  header-component .header-actions__cart-icon > .hidden {
+    display: none !important;
+  }
+
   /* Cart bubble: collapse to a single black circle matching the wishlist badge */
   header-component .header-actions__action .cart-bubble,
   header-component .header-actions__cart-icon .cart-bubble {
