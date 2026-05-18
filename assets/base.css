@@ -6272,10 +6272,32 @@ header-component[transparent]:not([data-scrolled]) .cart-bubble__text-count {
     padding: 0 !important;
   }
 
-  /* Cart bubble repositioned inside the squared button */
+  /* Cart bubble: match wishlist badge exactly (single black circle, no white ring) */
   header-component .header-actions__cart-icon .cart-bubble {
-    top: -6px !important;
-    right: -6px !important;
+    top: -4px !important;
+    right: -4px !important;
+    width: 18px !important;
+    min-width: 18px !important;
+    height: 18px !important;
+    aspect-ratio: 1 !important;
+    border-radius: 50% !important;
+    background: #111111 !important;
+    color: #ffffff !important;
+    padding: 0 !important;
+  }
+
+  header-component .header-actions__cart-icon .cart-bubble__background {
+    background: #111111 !important;
+    background-color: #111111 !important;
+    border-radius: 50% !important;
+  }
+
+  header-component .header-actions__cart-icon .cart-bubble__text,
+  header-component .header-actions__cart-icon .cart-bubble__text-count {
+    color: #ffffff !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
   }
 
   /* Wishlist badge repositioned inside the squared button */
