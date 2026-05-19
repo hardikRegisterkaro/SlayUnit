@@ -6345,6 +6345,21 @@ header-component .menu-list__item--active {
 }
 
 /* =========================================================
+   JUDGE.ME REVIEW WIDGET — force max-width past their 1200px cap
+   ========================================================= */
+.jdgm-widget,
+.jdgm-rev-widg,
+.jdgm-all-reviews-widget,
+.jdgm-rev-widg__reviews,
+.jdgm-row-rating,
+[id^='judgeme_product_reviews'],
+.shopify-block .jdgm-widget {
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* =========================================================
    CATALOG WRAPPER — desktop-only: 2-column flex (sidebar + grid), zero gap.
    Mobile uses Shopify's default horizontal-filter drawer layout.
    ========================================================= */
@@ -6378,7 +6393,6 @@ header-component .menu-list__item--active {
     gap: 16px !important;
     padding: 4px 18px !important;
     border: 1px solid #111 !important;
-    border-bottom: none !important;
     background: #fff !important;
     box-sizing: border-box;
     min-height: 44px;
@@ -6572,6 +6586,13 @@ header-component .menu-list__item--active {
     grid-row: 2 !important;
     min-width: 0 !important;
     margin: 0 !important;
+    align-self: start !important;
+    padding-top: 0 !important;
+  }
+
+  /* Force row 1 height to just the top bar (~52px), let row 2 take the rest */
+  results-list .collection-wrapper {
+    grid-template-rows: auto 1fr !important;
   }
 }
 
