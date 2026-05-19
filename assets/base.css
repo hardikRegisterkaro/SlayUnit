@@ -6345,7 +6345,7 @@ header-component .menu-list__item--active {
 }
 
 /* =========================================================
-   JUDGE.ME REVIEW WIDGET — force max-width past their 1200px cap
+   JUDGE.ME REVIEW WIDGET — let it span the full parent width
    ========================================================= */
 .jdgm-widget,
 .jdgm-rev-widg,
@@ -6354,9 +6354,10 @@ header-component .menu-list__item--active {
 .jdgm-row-rating,
 [id^='judgeme_product_reviews'],
 .shopify-block .jdgm-widget {
-  max-width: 1280px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
 }
 
 /* =========================================================
