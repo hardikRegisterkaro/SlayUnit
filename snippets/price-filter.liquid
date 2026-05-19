@@ -188,6 +188,40 @@
   close_with_escape: is_horizontal
 %}
 
+<script>
+  (function () {
+    const wrappers = document.querySelectorAll('.price-facet__inputs-wrapper');
+    wrappers.forEach((wrapper) => {
+      const inputs = wrapper.querySelectorAll('input[type="text"], input[type="number"]');
+      if (inputs.length !== 2) return;
+      const [minInput, maxInput] = inputs;
+
+      const sync = () => {
+        const rangeMax = parseFloat(maxInput.getAttribute('data-max')) || parseFloat(maxInput.placeholder) || 0;
+        const rangeMin = parseFloat(minInput.getAttribute('data-min')) || 0;
+        const curMin = parseFloat(minInput.value) || rangeMin;
+        const curMax = parseFloat(maxInput.value) || rangeMax;
+        if (!rangeMax || rangeMax <= rangeMin) {
+          wrapper.style.setProperty('--handle-visible', '0');
+          return;
+        }
+        wrapper.style.setProperty('--handle-visible', '1');
+        const startPct = Math.max(0, Math.min(100, ((curMin - rangeMin) / (rangeMax - rangeMin)) * 100));
+        const endPct = Math.max(0, Math.min(100, ((curMax - rangeMin) / (rangeMax - rangeMin)) * 100));
+        wrapper.style.setProperty('--handle-start', startPct + '%');
+        wrapper.style.setProperty('--handle-end', endPct + '%');
+      };
+
+      sync();
+      minInput.addEventListener('input', sync);
+      maxInput.addEventListener('input', sync);
+      minInput.addEventListener('change', sync);
+      maxInput.addEventListener('change', sync);
+    });
+  })();
+</script>
+
+
 {% stylesheet %}
   /* Price filter */
   .price-facet {

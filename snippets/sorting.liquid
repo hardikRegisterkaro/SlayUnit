@@ -38,21 +38,20 @@
     <div class="sorting-filter__select-wrapper">
       <select
         id="sort-select-{{ section_id }}"
-        name="sort_by"
         class="sorting-filter__select"
-        {% if should_use_select_on_mobile == false %}
-          disabled
-        {% endif %}
+        data-sort-select
       >
         {% for option in results.sort_options %}
-          <option
-            value="{{ option.value }}"
-            {% if option.value == sort_by %}
-              selected
-            {% endif %}
-          >
-            {{ option.name }}
-          </option>
+          {% unless option.value contains 'title' %}
+            <option
+              value="{{ option.value }}"
+              {% if option.value == sort_by %}
+                selected
+              {% endif %}
+            >
+              {{ option.name }}
+            </option>
+          {% endunless %}
         {% endfor %}
       </select>
       <svg
@@ -135,6 +134,9 @@
                   {% if option.value == sort_by %}
                     checked
                   {% endif %}
+                  {% if suffix == 'desktop' %}
+                    disabled
+                  {% endif %}
                   aria-hidden="true"
                 >
                 <span class="svg-wrapper icon-checkmark sorting-filter__checkmark">
@@ -167,6 +169,29 @@
     close_with_escape: is_horizontal
   %}
 </sorting-filter-component>
+
+<script>
+  (function () {
+    document.querySelectorAll('select[data-sort-select]').forEach(function (sel) {
+      // Capture-phase listener: fires BEFORE Shopify's bubble-phase document listener,
+      // so we can fully block their handler.
+      sel.addEventListener(
+        'change',
+        function (e) {
+          e.stopImmediatePropagation();
+          e.stopPropagation();
+          e.preventDefault();
+          var u = new URL(window.location.href);
+          // Wipe ALL existing sort_by params, then set one clean one
+          u.searchParams.delete('sort_by');
+          u.searchParams.set('sort_by', sel.value);
+          window.location.href = u.toString();
+        },
+        true
+      );
+    });
+  })();
+</script>
 
 {% stylesheet %}
   .sorting-filter__container {
