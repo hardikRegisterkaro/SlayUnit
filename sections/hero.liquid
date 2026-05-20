@@ -328,11 +328,13 @@
 
   {% if media_count == 0 %}
     <img
-      src="{{ 'heroImage.webp' | asset_url }}"
+      src="{{ 'heroImage-2400.webp' | asset_url }}"
+      srcset="{{ 'heroImage-480.webp' | asset_url }} 480w, {{ 'heroImage-768.webp' | asset_url }} 768w, {{ 'heroImage-1200.webp' | asset_url }} 1200w, {{ 'heroImage-1800.webp' | asset_url }} 1800w, {{ 'heroImage-2400.webp' | asset_url }} 2400w"
+      sizes="100vw"
       alt=""
       class="hero__media"
-      width="5760"
-      height="3600"
+      width="2400"
+      height="1500"
       loading="eager"
       decoding="async"
       fetchpriority="{{ fetch_priority }}"
@@ -368,7 +370,7 @@
     }}
   {% endif %}
   {% if media_count == 0 %}
-    <img src="{{ 'heroImage.webp' | asset_url }}" alt="" class="hero__media" width="5760" height="3600" loading="lazy" decoding="async">
+    <img src="{{ 'heroImage-1200.webp' | asset_url }}" alt="" class="hero__media" width="1200" height="750" loading="lazy" decoding="async">
   {% endif %}
 {% endcapture %}
 

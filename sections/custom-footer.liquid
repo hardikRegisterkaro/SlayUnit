@@ -1,0 +1,369 @@
+{%- liquid
+  assign brand_blurb = section.settings.brand_blurb
+  assign col1_title = section.settings.col1_title | default: 'Collections'
+  assign col2_title = section.settings.col2_title | default: 'Support'
+  assign newsletter_title = section.settings.newsletter_title | default: 'Transmission'
+  assign newsletter_body = section.settings.newsletter_body
+  assign newsletter_placeholder = section.settings.newsletter_placeholder | default: 'Enter email address'
+  assign newsletter_cta = section.settings.newsletter_cta | default: 'Subscribe'
+  assign logo = section.settings.logo
+  assign instagram_url = section.settings.instagram_url
+  assign twitter_url = section.settings.twitter_url
+-%}
+
+<footer class="su-footer">
+  <div class="su-footer__inner">
+    <div class="su-footer__col su-footer__col--brand">
+      {% if logo != blank %}
+        {{ logo | image_url: width: 200 | image_tag: class: 'su-footer__logo', alt: shop.name, loading: 'lazy' }}
+      {% else %}
+        <span class="su-footer__wordmark">{{ shop.name | upcase }}</span>
+      {% endif %}
+
+      {% if brand_blurb != blank %}
+        <p class="su-footer__blurb">{{ brand_blurb }}</p>
+      {% endif %}
+
+      <div class="su-footer__social">
+        {% if instagram_url != blank %}
+          <a href="{{ instagram_url }}" target="_blank" rel="noopener" class="su-footer__social-link" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+        {% endif %}
+        {% if twitter_url != blank %}
+          <a href="{{ twitter_url }}" target="_blank" rel="noopener" class="su-footer__social-link" aria-label="X">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="su-footer__col">
+      <h3 class="su-footer__heading">{{ col1_title }}</h3>
+      <ul class="su-footer__list">
+        {% for block in section.blocks %}
+          {% if block.type == 'col1_link' %}
+            <li><a href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="su-footer__col">
+      <h3 class="su-footer__heading">{{ col2_title }}</h3>
+      <ul class="su-footer__list">
+        {% for block in section.blocks %}
+          {% if block.type == 'col2_link' %}
+            <li><a href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="su-footer__col">
+      <h3 class="su-footer__heading">{{ newsletter_title }}</h3>
+      {% if newsletter_body != blank %}
+        <p class="su-footer__newsletter-body">{{ newsletter_body }}</p>
+      {% endif %}
+
+      {% form 'customer', class: 'su-footer__newsletter-form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input
+          type="email"
+          name="contact[email]"
+          placeholder="{{ newsletter_placeholder }}"
+          required
+          aria-label="Email address"
+          class="su-footer__newsletter-input"
+        >
+        <button type="submit" class="su-footer__newsletter-btn">{{ newsletter_cta }}</button>
+        {% if form.posted_successfully? %}
+          <p class="su-footer__newsletter-success">Thanks for subscribing.</p>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+
+  {% if section.settings.show_bottom_strip %}
+    <div class="su-footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</span>
+    </div>
+  {% endif %}
+</footer>
+
+{% stylesheet %}
+  .su-footer {
+    background: #ffffff;
+    color: #111;
+    border-top: 1px solid #111;
+  }
+
+  .su-footer__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 60px 36px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 48px;
+  }
+
+  .su-footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .su-footer__col--brand {
+    gap: 20px;
+  }
+
+  /* Logo / wordmark */
+  .su-footer__logo {
+    width: 140px;
+    height: auto;
+  }
+
+  .su-footer__wordmark {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    color: #111;
+  }
+
+  .su-footer__blurb {
+    margin: 0;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    line-height: 1.7;
+    color: #555;
+    max-width: 280px;
+  }
+
+  .su-footer__social {
+    display: flex;
+    gap: 10px;
+  }
+
+  .su-footer__social-link {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #111;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .su-footer__social-link:hover {
+    background: #111;
+    color: #fff;
+  }
+
+  /* Column heading */
+  .su-footer__heading {
+    margin: 0 0 4px;
+    padding-bottom: 8px;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #111;
+    border-bottom: 2px solid #111;
+    display: inline-block;
+    width: fit-content;
+  }
+
+  /* Link lists */
+  .su-footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .su-footer__list a {
+    color: #111;
+    text-decoration: none;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: opacity 0.15s ease;
+  }
+
+  .su-footer__list a:hover {
+    opacity: 0.65;
+  }
+
+  /* Newsletter */
+  .su-footer__newsletter-body {
+    margin: 0 0 8px;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.82rem;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .su-footer__newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .su-footer__newsletter-input {
+    width: 100%;
+    border: 1px solid #111;
+    border-radius: 0;
+    background: #ffffff;
+    color: #111;
+    padding: 12px 14px;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .su-footer__newsletter-input::placeholder {
+    color: #999;
+  }
+
+  .su-footer__newsletter-input:focus {
+    outline: none;
+    border-color: #d8362a;
+  }
+
+  .su-footer__newsletter-btn {
+    background: #111;
+    color: #fff;
+    border: 1px solid #111;
+    padding: 12px 14px;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .su-footer__newsletter-btn:hover {
+    background: #d8362a;
+    border-color: #d8362a;
+  }
+
+  .su-footer__newsletter-success {
+    margin: 4px 0 0;
+    color: #178a3a;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.78rem;
+  }
+
+  /* Bottom strip */
+  .su-footer__bottom {
+    border-top: 1px solid #e5e5e5;
+    padding: 18px 36px;
+    text-align: center;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #777;
+  }
+
+  @media (max-width: 990px) {
+    .su-footer__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      padding: 48px 24px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .su-footer__inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 40px 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Custom footer",
+  "settings": [
+    { "type": "header", "content": "Brand column" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "textarea", "id": "brand_blurb", "label": "Brand blurb", "default": "We believe fashion is a reflection of individuality. Industrial aesthetics meeting uncompromising quality for the fearless." },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+    { "type": "url", "id": "twitter_url", "label": "Twitter / X URL" },
+
+    { "type": "header", "content": "Column 1" },
+    { "type": "text", "id": "col1_title", "label": "Title", "default": "Collections" },
+
+    { "type": "header", "content": "Column 2" },
+    { "type": "text", "id": "col2_title", "label": "Title", "default": "Support" },
+
+    { "type": "header", "content": "Newsletter column" },
+    { "type": "text", "id": "newsletter_title", "label": "Title", "default": "Transmission" },
+    { "type": "textarea", "id": "newsletter_body", "label": "Body", "default": "Subscribe for early access to drops and editorial content." },
+    { "type": "text", "id": "newsletter_placeholder", "label": "Input placeholder", "default": "Enter email address" },
+    { "type": "text", "id": "newsletter_cta", "label": "Submit button label", "default": "Subscribe" },
+
+    { "type": "header", "content": "Bottom strip" },
+    { "type": "checkbox", "id": "show_bottom_strip", "label": "Show copyright strip", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "col1_link",
+      "name": "Column 1 link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "New Arrivals" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    },
+    {
+      "type": "col2_link",
+      "name": "Column 2 link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Track Order" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom footer",
+      "blocks": [
+        { "type": "col1_link", "settings": { "label": "New Arrivals" } },
+        { "type": "col1_link", "settings": { "label": "The Industrial Core" } },
+        { "type": "col1_link", "settings": { "label": "Anime Inspired" } },
+        { "type": "col1_link", "settings": { "label": "Footwear" } },
+        { "type": "col1_link", "settings": { "label": "Accessories" } },
+        { "type": "col2_link", "settings": { "label": "Track Order" } },
+        { "type": "col2_link", "settings": { "label": "Returns & Exchanges" } },
+        { "type": "col2_link", "settings": { "label": "Shipping Information" } },
+        { "type": "col2_link", "settings": { "label": "Size Guide" } },
+        { "type": "col2_link", "settings": { "label": "Contact Us" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

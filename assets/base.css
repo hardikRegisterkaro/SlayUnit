@@ -6747,15 +6747,12 @@ header-component .menu-list__item--active {
   color: #111 !important;
 }
 
-/* Each filter group section — uniform padding, no built-in border */
-.facets--vertical .facets__panel,
+/* Each filter group section — uniform padding on the OUTER wrapper only.
+   .facets__item is the accordion-custom that contains the <details panel>;
+   the inner panel gets no extra padding so headings align with FILTERS. */
 .facets--vertical .facets__item,
-.facets--vertical .facets__form-wrapper > details,
-.facets--vertical .facets__form-wrapper > accordion-custom-component,
-.facets--vertical .facets__sidebar-sort,
-.facets--vertical .facets__form > details,
-.facets--vertical .facets__form > accordion-custom-component,
-.facets--vertical accordion-custom-component {
+.facets--vertical accordion-custom,
+.facets--vertical .facets__sidebar-sort {
   display: block !important;
   width: 100% !important;
   box-sizing: border-box !important;
@@ -6763,6 +6760,17 @@ header-component .menu-list__item--active {
   padding: 18px !important;
   margin: 0 !important;
   position: relative;
+}
+
+/* Reset padding on the inner <details panel> so its summary aligns with
+   the outer 18px padding (avoids double-padding => 36px indent) */
+.facets--vertical .facets__item .facets__panel,
+.facets--vertical accordion-custom .facets__panel,
+.facets--vertical .facets__item details,
+.facets--vertical accordion-custom details {
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
 }
 
 /* Dividers — every filter section gets a full-width top border via box-shadow
