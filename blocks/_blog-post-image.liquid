@@ -20,8 +20,8 @@
         {{ image | image_url }} {{ image.width }}w
       "
       src="{{ image | image_url: width: 1100 }}"
-      loading="eager"
-      fetchpriority="high"
+      loading="{% if is_first or is_first == nil %}eager{% else %}lazy{% endif %}"
+      fetchpriority="{% if is_first or is_first == nil %}high{% else %}auto{% endif %}"
       width="{{ image.width }}"
       height="{{ image.height }}"
       alt="{{ image.alt | escape }}"

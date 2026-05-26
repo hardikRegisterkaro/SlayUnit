@@ -10,11 +10,32 @@
   type="module"
 ></script>
 
-<script
-  src="{{ 'predictive-search.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
+<script>
+  // Lazy-load predictive-search.js (13 KB) on first interaction with any search trigger.
+  (function () {
+    var loaded = false;
+    var url = {{ 'predictive-search.js' | asset_url | json }};
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = url;
+      s.type = 'module';
+      document.head.appendChild(s);
+    }
+    function bind() {
+      document.querySelectorAll('search-button').forEach(function (btn) {
+        btn.addEventListener('pointerdown', load, { once: true, passive: true });
+        btn.addEventListener('focusin', load, { once: true });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bind);
+    } else {
+      bind();
+    }
+  })();
+</script>
 
 <dialog-component
   id="search-modal"

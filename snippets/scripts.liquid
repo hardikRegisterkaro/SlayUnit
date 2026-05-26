@@ -109,11 +109,16 @@
   href="{{ 'events.js' | asset_url }}"
   fetchpriority="low"
 >
-<script
-  src="{{ 'popover-polyfill.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
+<script>
+  // Only load popover-polyfill (25 KB) on browsers that lack native <popover> support.
+  if (!HTMLElement.prototype.hasOwnProperty('popover')) {
+    var s = document.createElement('script');
+    s.src = {{ 'popover-polyfill.js' | asset_url | json }};
+    s.type = 'module';
+    s.fetchPriority = 'low';
+    document.head.appendChild(s);
+  }
+</script>
 <script
   src="{{ 'overflow-list.js' | asset_url }}"
   type="module"

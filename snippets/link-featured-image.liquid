@@ -38,10 +38,12 @@
     }}
   {% endif %}
 {% elsif link.type == 'catalog_link' %}
-  {% assign product_object = collections.all.products | where: 'featured_image' | first %}
-  {{
-    product_object.featured_image
-    | image_url: width: 800
-    | image_tag: loading: 'lazy', class: class, sizes: image_sizes
-  }}
+  {%- assign collection_object = collections | where: 'featured_image' | first -%}
+  {% if collection_object.featured_image %}
+    {{
+      collection_object.featured_image
+      | image_url: width: 800
+      | image_tag: loading: 'lazy', class: class, sizes: image_sizes
+    }}
+  {% endif %}
 {% endif %}

@@ -5208,64 +5208,45 @@ header-component .header-logo span {
     height: 22px !important;
   }
 
-  /* Hide the desktop text/image containers on mobile and show the SU mark instead */
+  /* Hide the default Shopify text/image containers on mobile — SU mark is rendered via <picture> */
   .header-logo__image-container--original,
   .header-logo__image-container--inverse {
     display: none !important;
   }
-
-  .header-logo__mobile-mark--black {
-    display: block !important;
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-  }
-
-  .header-logo__mobile-mark--white {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-  }
-
-  /* Transparent navbar at top of page: show white mark, hide black */
-  header-component[transparent]:not([data-scrolled]) .header-logo__mobile-mark--black {
-    display: none !important;
-  }
-
-  header-component[transparent]:not([data-scrolled]) .header-logo__mobile-mark--white {
-    display: block !important;
-  }
 }
 
-/* SU brand marks — replace the default shop.name text fallback completely */
+/* SU brand mark — replaces the default shop.name text fallback completely */
 .header-logo__image-container--original,
 .header-logo__image-container--inverse {
   display: none !important;
 }
 
-.header-logo__mobile-mark {
-  display: none;
+.header-logo__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: #000;
+  line-height: 0;
 }
 
-.header-logo__desktop-mark {
-  display: none;
-  width: auto;
-  height: 60px;
-  object-fit: contain;
+.header-logo__mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 @media (min-width: 750px) {
-  .header-logo__desktop-mark--black {
-    display: block;
+  .header-logo__mark {
+    width: 60px;
+    height: 60px;
   }
+}
 
-  header-component[transparent]:not([data-scrolled]) .header-logo__desktop-mark--black {
-    display: none;
-  }
-
-  header-component[transparent]:not([data-scrolled]) .header-logo__desktop-mark--white {
-    display: block;
-  }
+/* Dark/white swap: invert logo when navbar is transparent over hero */
+header-component[transparent]:not([data-scrolled]) .header-logo__mark {
+  color: #fff;
 }
 
 /* Glassmorphism for transparent header (top of page, over hero) */
@@ -5890,6 +5871,18 @@ header-component[transparent][data-scrolled] .header-actions__cart-icon svg path
   stroke: #e03131;
 }
 
+/* Mobile: shrink heart + bump padding off the card edge */
+@media (max-width: 749px) {
+  .wishlist-btn {
+    top: 12px;
+    left: 14px;
+  }
+  .wishlist-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
 /* Navbar wishlist icon */
 .wishlist-nav {
   display: flex;
@@ -6248,6 +6241,14 @@ header-component[transparent]:not([data-scrolled]) .cart-bubble__text-count {
   header-component cart-icon,
   header-component .header-actions__cart-icon {
     overflow: visible !important;
+  }
+
+  /* Kill Horizon's donut mask on the cart SVG — bubble was repositioned outside
+     the icon, so the mask hole has nothing covering it and shows as white. */
+  header-component .header-actions__cart-icon.header-actions__cart-icon--has-cart svg,
+  header-component .header-actions__cart-icon svg {
+    mask: none !important;
+    -webkit-mask: none !important;
   }
 
   header-component .header-actions__action:hover,
