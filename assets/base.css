@@ -4335,20 +4335,17 @@ product-recommendations:has([data-has-recommendations='false']) {
   padding: 18px 36px !important;
 }
 
-.hero__content-wrapper .button-primary:hover {
-  background: #b82c22 !important;
-  color: #ffffff !important;
-}
-
-/* Hero button: fill left→right on hover */
+/* Hero buttons: fill left→right on hover */
 .hero__content-wrapper .button-primary,
 .hero__content-wrapper .button-secondary {
   position: relative;
   overflow: hidden;
   transition: color 0.4s ease !important;
   z-index: 0;
+  isolation: isolate;
 }
 
+.hero__content-wrapper .button-primary::before,
 .hero__content-wrapper .button-secondary::before {
   content: '';
   position: absolute;
@@ -4360,8 +4357,14 @@ product-recommendations:has([data-has-recommendations='false']) {
   z-index: -1;
 }
 
+.hero__content-wrapper .button-primary:hover::before,
 .hero__content-wrapper .button-secondary:hover::before {
   transform: scaleX(1);
+}
+
+.hero__content-wrapper .button-primary:hover {
+  color: #d8362a !important;
+  background: #d8362a !important;
 }
 
 .hero__content-wrapper .button-secondary:hover {
@@ -5084,12 +5087,21 @@ product-recommendations:has([data-has-recommendations='false']) {
 
 .product-card .price,
 .product-card .price-item--regular,
-.product-card .price-item--sale {
-  font-family: var(--font-body--family) !important;
-  font-weight: 500 !important;
-  font-size: 1rem !important;
-  letter-spacing: 0.02em !important;
+.product-card .price-item--sale,
+.product-grid__item .price,
+.product-card product-price,
+.product-card product-price .text-block {
+  font-family: var(--font-heading--family) !important;
+  font-weight: 800 !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.01em !important;
+  line-height: 1.3 !important;
   color: #444444 !important;
+}
+
+/* Breathing room between product card title and price */
+.product-card product-price {
+  margin-top: 10px !important;
 }
 
 /* Mobile shrink — placed after desktop rules to win cascade */
@@ -5105,8 +5117,8 @@ product-recommendations:has([data-has-recommendations='false']) {
   .product-card .price,
   .product-card .price-item--regular,
   .product-card .price-item--sale {
-    --font-size: 0.85rem !important;
-    font-size: 0.85rem !important;
+    --font-size: 0.88rem !important;
+    font-size: 0.88rem !important;
   }
 }
 
@@ -5222,31 +5234,17 @@ header-component .header-logo span {
 }
 
 .header-logo__mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 36px;
   height: 36px;
-  color: #000;
-  line-height: 0;
-}
-
-.header-logo__mark svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+  object-fit: contain;
 }
 
 @media (min-width: 750px) {
   .header-logo__mark {
-    width: 60px;
-    height: 60px;
+    width: auto;
+    height: 48px;
   }
-}
-
-/* Dark/white swap: invert logo when navbar is transparent over hero */
-header-component[transparent]:not([data-scrolled]) .header-logo__mark {
-  color: #fff;
 }
 
 /* Glassmorphism for transparent header (top of page, over hero) */
@@ -7256,3 +7254,328 @@ header-component .menu-list__item--active {
   flex-shrink: 0;
 }
 
+
+/* =========================================================
+   PRODUCT PAGE — BRUTALIST FORM (variant picker, qty, ATC, wishlist)
+   ========================================================= */
+
+:root {
+  --su-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, monospace;
+}
+
+/* --- VARIANT PICKER: square pills, black-on-select --- */
+.variant-option--buttons .variant-option__button-label {
+  border-radius: 0 !important;
+  border: 1px solid #000 !important;
+  background: #fff !important;
+  color: #000 !important;
+  padding: 8px 16px !important;
+  font-family: var(--su-mono) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase;
+  height: 44px;
+  min-height: 44px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+.variant-option--buttons .variant-option__button-label:hover {
+  background: #f5f5f5 !important;
+}
+
+/* Strip Horizon's decorative ::before / ::after / pill */
+.variant-option--buttons .variant-option__button-label::before,
+.variant-option--buttons .variant-option__button-label::after,
+.variant-option--buttons .variant-option__button-label__pill {
+  display: none !important;
+  content: none !important;
+}
+
+/* Active variant: solid black */
+.variant-option--buttons .variant-option__button-label:has(:checked) {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* Sold-out variants: muted (diagonal strike is already drawn by the theme) */
+.variant-option--buttons .variant-option__button-label:has([data-option-available='false']) {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Legend (SIZE, COLOR, etc.) */
+.variant-option--buttons legend {
+  font-family: var(--su-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 14px;
+  color: #000;
+  font-weight: 700;
+}
+
+.variant-option--buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.variant-option--buttons .variant-option__button-label {
+  flex: 1 1 0;
+  min-width: 72px;
+}
+
+/* --- QUANTITY SELECTOR: square, matches button heights --- */
+.product-form-buttons .quantity-selector,
+.quantity-selector-wrapper .quantity-selector {
+  border-radius: 0 !important;
+  border: 1px solid #000 !important;
+  height: 48px;
+  min-height: 48px;
+  background: #fff;
+  font-family: var(--su-mono);
+}
+
+.product-form-buttons .quantity-selector .quantity-minus,
+.product-form-buttons .quantity-selector .quantity-plus {
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #000 !important;
+  padding: 0 12px;
+  min-width: 32px;
+  height: 100%;
+}
+
+.product-form-buttons .quantity-selector input[type='number'] {
+  background: transparent !important;
+  color: #000 !important;
+  border-radius: 0 !important;
+  font-family: var(--su-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  height: 100%;
+}
+
+/* --- ADD TO CART BUTTON --- */
+.product-form-buttons .add-to-cart-button,
+.product-form-buttons .add-to-cart-button.button,
+.product-form-buttons .add-to-cart-button.button-secondary {
+  border-radius: 0 !important;
+  background: #000 !important;
+  color: #fff !important;
+  border: 1px solid #000 !important;
+  font-family: var(--su-mono) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase;
+  padding: 8px 24px !important;
+  height: 48px;
+  min-height: 48px;
+  box-shadow: none !important;
+  transition: background 0.15s ease;
+}
+
+.product-form-buttons .add-to-cart-button:hover {
+  background: #222 !important;
+}
+
+.product-form-buttons .add-to-cart-button:disabled {
+  background: #999 !important;
+  border-color: #999 !important;
+  cursor: not-allowed;
+}
+
+/* --- WISHLIST BUTTON on product page --- */
+.su-product-wishlist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 24px;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 0;
+  font-family: var(--su-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #000;
+  cursor: pointer;
+  height: 48px;
+  min-height: 48px;
+  margin-top: 10px;
+  transition: background 0.15s ease, color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.su-product-wishlist:hover {
+  background: #f5f5f5;
+}
+
+.su-product-wishlist svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  transition: fill 0.15s ease;
+}
+
+.su-product-wishlist.wishlist-btn--active svg {
+  fill: currentColor;
+}
+
+.su-product-wishlist.wishlist-btn--active {
+  background: #000;
+  color: #fff;
+}
+
+/* --- ACCELERATED CHECKOUT (Shop Pay / Buy It Now): sharpen corners --- */
+.product-form-buttons .accelerated-checkout-block,
+.product-form-buttons .accelerated-checkout-block > * {
+  border-radius: 0 !important;
+}
+
+/* Arrow overlay before "Buy it now" text (Shopify's button is shadow DOM,
+   so we can't reach inside — overlay an arrow via ::before instead) */
+.product-form-buttons .accelerated-checkout-block {
+  position: relative;
+}
+
+.product-form-buttons .accelerated-checkout-block::before {
+  content: '→';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: 62px;
+  transform: translateY(-50%);
+  color: #fff;
+  font-family: var(--su-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* --- PRODUCT HEADER: huge bold uppercase title --- */
+main[data-template='product'] product-title .text-block,
+main[data-template='product'] product-title p[role='heading'] {
+  font-family: var(--font-heading--family) !important;
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.025em !important;
+  text-transform: uppercase !important;
+  margin: 0 0 12px !important;
+  color: #000 !important;
+}
+
+/* --- PRODUCT PRICE: bold mono --- */
+main[data-template='product'] product-price .text-block,
+main[data-template='product'] product-price .price {
+  font-family: var(--su-mono) !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  color: #000 !important;
+}
+
+/* Cards inside the product page (e.g. "You may also like") must still get
+   the card price color, overriding the product-page rule above */
+main[data-template='product'] product-card .price,
+main[data-template='product'] product-card .price-item--regular,
+main[data-template='product'] product-card .price-item--sale,
+main[data-template='product'] product-card product-price,
+main[data-template='product'] product-card product-price .text-block,
+main[data-template='product'] product-card product-price .price {
+  color: #444444 !important;
+  font-family: var(--font-heading--family) !important;
+  font-weight: 800 !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* --- INVENTORY: black pill on the right --- */
+main[data-template='product'] .product-inventory__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 6px 14px;
+  background: #000;
+  color: #fff;
+  font-family: var(--su-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 0;
+  line-height: 1;
+}
+
+main[data-template='product'] .product-inventory__icon {
+  display: none;
+}
+
+/* Hide the colored dot — pill background already conveys the state */
+main[data-template='product'] .product-inventory__status .svg-wrapper {
+  display: none;
+}
+
+/* Out-of-stock variant: lighten the pill */
+main[data-template='product'] product-inventory:has(.product-inventory__icon-out_of_stock) .product-inventory__status {
+  background: #999;
+}
+
+/* --- PRODUCT CARD: same brutalist heading style as product page title --- */
+product-card product-title .text-block,
+product-card product-title p[role='heading'],
+product-card product-title a,
+product-card product-title {
+  font-family: var(--font-heading--family) !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.005em !important;
+  text-transform: uppercase !important;
+  color: #000 !important;
+}
+
+product-card product-price .text-block,
+product-card product-price .price,
+product-card product-price,
+product-card .price-list,
+product-card .price-list .price-list__price {
+  font-family: var(--font-heading--family) !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em !important;
+  color: #444444 !important;
+}
+
+.product-form-buttons .accelerated-checkout-block shopify-buy-it-now-button,
+.product-form-buttons .accelerated-checkout-block shopify-payment-terms,
+.product-form-buttons .accelerated-checkout-block .shopify-payment-button,
+.product-form-buttons .accelerated-checkout-block .shopify-payment-button__button,
+.product-form-buttons .accelerated-checkout-block .shopify-payment-button__button--unbranded {
+  --shopify-buy-it-now-border-radius: 0 !important;
+  --shopify-pay-border-radius: 0 !important;
+  border-radius: 0 !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  font-family: var(--su-mono) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}

@@ -81,9 +81,19 @@
     </span>
   {% endif %}
 
-  <span class="header-logo__mark" aria-label="{{ shop.name }}">
-    {{- 'SULogoSmallBlack.svg' | inline_asset_content -}}
-  </span>
+  <picture>
+    <source media="(min-width: 750px)" srcset="{{ 'SULogoBigBlack.png' | asset_url }}">
+    <img
+      src="{{ 'SULogoSmallBlack.svg' | asset_url }}"
+      class="header-logo__mark"
+      alt="{{ shop.name }}"
+      width="36"
+      height="36"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    >
+  </picture>
 </a>
 
 {% stylesheet %}

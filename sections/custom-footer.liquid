@@ -238,11 +238,14 @@
     font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.16em;
-    text-transform: uppercase;
+    text-transform: none;
   }
 
+  /* Force uppercase only on the placeholder (matches brutalist style),
+     keep typed input in its natural case so lowercase emails read correctly */
   .su-footer__newsletter-input::placeholder {
     color: #999;
+    text-transform: uppercase;
   }
 
   .su-footer__newsletter-input:focus {
@@ -261,12 +264,30 @@
     letter-spacing: 0.22em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: color 0.4s ease;
+  }
+
+  .su-footer__newsletter-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+
+  .su-footer__newsletter-btn:hover::before {
+    transform: scaleX(1);
   }
 
   .su-footer__newsletter-btn:hover {
-    background: #d8362a;
-    border-color: #d8362a;
+    color: #111;
+    background: #111;
   }
 
   .su-footer__newsletter-success {

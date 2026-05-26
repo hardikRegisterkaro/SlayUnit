@@ -122,13 +122,32 @@
     text-decoration: none;
     border: 1px solid #111;
     padding: 10px 16px;
-    transition: background 0.15s ease, color 0.15s ease;
     white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: color 0.4s ease;
+    background: #fff;
+  }
+
+  .just-dropped__cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #111;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+
+  .just-dropped__cta:hover::before {
+    transform: scaleX(1);
   }
 
   .just-dropped__cta:hover {
-    background: #111;
     color: #fff;
+    background: #fff;
   }
 
   .just-dropped__grid {
